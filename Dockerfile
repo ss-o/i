@@ -1,19 +1,13 @@
-FROM golang:1.17.1-alpine AS build
+FROM golang:1.17.1-alpine
 
+RUN apk add --update
+RUN apk add --no-cache build-base ca-certificates openssl make
 WORKDIR /app
-
 COPY . .
+RUN go get -d -v ./...
+RUN go install -v ./...
 RUN go mod download
-RUN go build -o /installer
-
-FROM gcr.io/distroless/base-debian11
-
-WORKDIR /
-
-COPY --from=build /installer /installer
+RUN make build
 
 EXPOSE 3000
-
-USER nonroot:nonroot
-
-ENTRYPOINT ["/installer"]
+ENTRYPOINT ["./bin/i", "--token", "$GH_TOKEN"]
