@@ -1,11 +1,15 @@
 module github.com/ss-o/i
 
-go 1.14
-
-// +heroku goVersion go1.14
+go 1.17
 
 require (
 	github.com/jpillora/installer v0.2.9
 	github.com/jpillora/opts v1.2.0
 	github.com/rakyll/statik v0.1.7
+)
+
+require (
+	github.com/hashicorp/errwrap v1.0.0 // indirect
+	github.com/hashicorp/go-multierror v1.0.0 // indirect
+	github.com/posener/complete v1.2.2-0.20190308074557-af07aa5181b3 // indirect
 )
