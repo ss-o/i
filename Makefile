@@ -2,7 +2,7 @@ GOCMD=go
 BINARY_NAME=i
 VERSION?=1.0.0
 SERVICE_PORT=3000
-DOCKER_REGISTRY?= #if set it should finished by /
+DOCKER_REGISTRY=ghcr.io
 EXPORT_RESULT=true
 
 GREEN  := $(shell tput -Txterm setaf 2)
@@ -23,7 +23,7 @@ vendor:
 	$(GOCMD) mod vendor
 
 run:
-	./out/bin/i
+	./out/bin/i --token $(GH_TOKEN)
 
 watch:
 	$(eval PACKAGE_NAME=$(shell head -n 1 go.mod | cut -d ' ' -f2))
@@ -36,6 +36,5 @@ docker-build: ## Use the dockerfile to build the container
 docker-release: ## Release the container with tag latest and version
 	docker tag $(BINARY_NAME) $(DOCKER_REGISTRY)$(BINARY_NAME):latest
 	docker tag $(BINARY_NAME) $(DOCKER_REGISTRY)$(BINARY_NAME):$(VERSION)
-	# Push the docker images
 	docker push $(DOCKER_REGISTRY)$(BINARY_NAME):latest
 	docker push $(DOCKER_REGISTRY)$(BINARY_NAME):$(VERSION)
