@@ -57,26 +57,29 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push to Docker HUB
+      - name: Build and push to Docker HUB Registry
         id: docker_build
         uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
         with:
-          context: ./
+          context: .
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
+          tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/i:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: Build and push Docker Github Container Rregistry
+      - name: Build and push to Github Container Registry
         uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
         with:
           context: .
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
