@@ -57,17 +57,19 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push to Docker HUB Registry
-        id: docker_build
-        uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
-        with:
-          context: .
-          file: ./Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
-          push: false
-          tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+#      - name: Build and push to Docker HUB Registry
+#        id: docker_build
+#        uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
+#        with:
+#          context: .
+#          file: ./Dockerfile
+#          builder: ${{ steps.buildx.outputs.name }}
+#          push: false
+#          tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/i:latest
+#          cache-from: type=local,src=/tmp/.buildx-cache
+#          cache-to: type=local,dest=/tmp/.buildx-cache
+#      - name: Image digest
+#        run: echo ${{ steps.docker_build.outputs.digest }}
 
       - name: Build and push to Github Container Registry
         uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
@@ -80,6 +82,3 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
