@@ -1,70 +1,44 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 TMP_DIR="/tmp/tmpinstalldir"
-function cleanup {
+USER="{{ .User }}"
+PROG="{{ .Program }}"
+MOVE="{{ .MoveToPath }}"
+RELEASE="{{ .Release }}"
+INSECURE="{{ .Insecure }}"
+OUT_DIR="{{ if .MoveToPath }}/usr/local/bin{{ else }}$(pwd){{ end }}"
+GH="https://github.com"
+
+cleanup() {
 	echo rm -rf $TMP_DIR > /dev/null
 }
-function fail {
+fail() {
 	cleanup
 	msg=$1
 	echo "============"
 	echo "Error: $msg" 1>&2
 	exit 1
 }
-function os_release() {
-	if [ -f /etc/os-release ]; then
-    # shellcheck disable=SC1091
-	source /etc/os-release
-        DISTRO=${ID}
-        DISTRO_VERSION=${VERSION_ID}
-    fi
+os_type() {
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	OS="linux"
-		if { [ "${DISTRO}" == "ubuntu" ] || [ "${DISTRO}" == "debian" ] || [ "${DISTRO}" == "raspbian" ] || [ "${DISTRO}" == "pop" ] || [ "${DISTRO}" == "kali" ] || [ "${DISTRO}" == "linuxmint" ] || [ "${DISTRO}" == "fedora" ] || [ "${DISTRO}" == "centos" ] || [ "${DISTRO}" == "rhel" ] || [ "${DISTRO}" == "arch" ] || [ "${DISTRO}" == "archarm" ] || [ "${DISTRO}" == "manjaro" ] || [ "${DISTRO}" == "alpine" ] || [ "${DISTRO}" == "freebsd" ] || [ "${DISTRO}" == "neon" ] || [ "${DISTRO}" == "almalinux" ] || [ "${DISTRO}" == "rocky" ]; }; then
-				echo "$DISTRO"
-			elif { [ "${DISTRO}" == "fedora" ] || [ "${DISTRO}" == "centos" ] || [ "${DISTRO}" == "rhel" ] || [ "${DISTRO}" == "almalinux" ] || [ "${DISTRO}" == "rocky" ]; }; then
-				echo "$DISTRO"
-			elif { [ "${DISTRO}" == "arch" ] || [ "${DISTRO}" == "archarm" ] || [ "${DISTRO}" == "manjaro" ]; }; then
-				echo "$DISTRO"
-			elif { [ "${DISTRO}" == "fedora" ] || [ "${DISTRO}" == "centos" ] || [ "${DISTRO}" == "rhel" ] || [ "${DISTRO}" == "almalinux" ] || [ "${DISTRO}" == "rocky" ]; }; then
-				echo "$DISTRO"
-			elif { [ "${DISTRO}" == "arch" ] || [ "${DISTRO}" == "archarm" ] || [ "${DISTRO}" == "manjaro" ]; }; then
-				echo "$DISTRO"
-			elif [ "${DISTRO}" == "alpine" ]; then
-				echo "$DISTRO"
-		fi
-fi
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	# Seperating as most likely darwin will be expanded.
+	elif [[ "$OSTYPE" == "darwin"* ]]; then
 	OS="darwin"
-fi
-if [[ "$OSTYPE" == "cygwin" ]]; then
-		# POSIX compatibility layer and Linux environment emulation for Windows
-				echo "Your Operating System not supported yet..."
-			elif [[ "$OSTYPE" == "msys" ]]; then
-		# Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
-				echo "Your Operating System not supported yet..."
-			elif [[ "$OSTYPE" == "win32" ]]; then
-		# Not sure
-		echo "Your Operating System not supported yet..."
-fi
-if { [[ "$OSTYPE" == "freebsd"* ]] || [[ "$DISTRO" == "freebsd" ]]; }; then
-    # Quite confident freebsd
+		elif [[ "$OSTYPE" == "cygwin" ]]; then
+	OS="windows"
+		elif [[ "$OSTYPE" == "msys" ]]; then
+	OS="windows"
+		elif [[ "$OSTYPE" == "win32" ]]; then
+	OS="windows"
+		elif [[ "$OSTYPE" == "freebsd"* ]]; then
 	OS="freebsd"
+else
+	fail "Unknown OS"
 fi
 }
-function install {
-	#settings
-	USER="{{ .User }}"
-	PROG="{{ .Program }}"
-	MOVE="{{ .MoveToPath }}"
-	RELEASE="{{ .Release }}"
-	INSECURE="{{ .Insecure }}"
-	OUT_DIR="{{ if .MoveToPath }}/usr/local/bin{{ else }}$(pwd){{ end }}"
-	GH="https://github.com"
-	#bash check
+install() {
 	[ ! "$BASH_VERSION" ] && fail "Please use bash instead"
 	[ ! -d $OUT_DIR ] && fail "output directory missing: $OUT_DIR"
-	#dependency check, assume we are a standard POISX machine
 	which find > /dev/null || fail "find not installed"
 	which xargs > /dev/null || fail "xargs not installed"
 	which sort > /dev/null || fail "sort not installed"
@@ -83,8 +57,6 @@ function install {
 	else
 		fail "neither wget/curl are installed"
 	fi
-
-	#find ARCH
 	if uname -m | grep 64 > /dev/null; then
 		ARCH="amd64"
 	elif uname -m | grep arm > /dev/null; then
@@ -94,7 +66,6 @@ function install {
 	else
 		fail "unknown arch: $(uname -m)"
 	fi
-	#choose from asset list
 	URL=""
 	FTYPE=""
 	case "${OS}_${ARCH}" in{{ range .Assets }}
@@ -104,10 +75,8 @@ function install {
 		;;{{end}}
 	*) fail "No asset for platform ${OS}-${ARCH}";;
 	esac
-	#got URL! download it...
 	echo -n "{{ if .MoveToPath }}Installing{{ else }}Downloading{{ end }} $USER/$PROG $RELEASE"
 	{{ if .Google }}
-	#matched using google, give time to cancel
 	echo -n " in 5 seconds"
 	for i in 1 2 3 4 5; do
 		sleep 1
@@ -116,7 +85,6 @@ function install {
 	{{ else }}
 	echo "....."
 	{{ end }}
-	#enter tempdir
 	mkdir -p $TMP_DIR
 	cd $TMP_DIR
 	if [[ $FTYPE = ".gz" ]]; then
@@ -155,7 +123,10 @@ function install {
 	{{ if .SudoMove }}echo "using sudo to move binary..."{{ end }}
 	{{ if .SudoMove }}sudo {{ end }}mv $TMP_BIN $OUT_DIR/$PROG || fail "mv failed" #FINAL STEP!
 	echo "{{ if .MoveToPath }}Installed at{{ else }}Downloaded to{{ end }} $OUT_DIR/$PROG"
-	#done
-	cleanup
 }
-install
+
+while true; do
+	os_type
+	install
+	cleanup
+done

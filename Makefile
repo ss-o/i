@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 GOCMD=go
 BINARY_NAME=i
 VERSION=1.0.0
