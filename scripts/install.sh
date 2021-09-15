@@ -68,7 +68,7 @@ install() {
 	fi
 	URL=""
 	FTYPE=""
-	case "${OS}_${ARCH}" in{{ range .Assets }}
+	case "${OS}_${ARCH}" in {{ range .Assets }}
 	"{{ .OS }}_{{ .Arch }}")
 		URL="{{ .URL }}"
 		FTYPE="{{ .Type }}"
