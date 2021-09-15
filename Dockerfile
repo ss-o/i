@@ -9,8 +9,9 @@ RUN apk add --no-cache ca-certificates openssl make git curl wget
 WORKDIR /app
 
 COPY . .
-RUN go get -d -v ./...
-RUN go install -v ./...
+RUN go get -d -v
+RUN go install -v 
+RUN go mod download
 RUN make build
 
 EXPOSE 3000

@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := /bin/sh
 
 GOCMD=go
 BINARY_NAME=i
@@ -6,11 +6,6 @@ VERSION=1.0.0
 SERVICE_PORT=3000
 DOCKER_REGISTRY=ghcr.io/ss-o
 EXPORT_RESULT=true
-
-#YELLOW := $(shell tput -Txterm setaf 3)
-#WHITE  := $(shell tput -Txterm setaf 7)
-#CYAN   := $(shell tput -Txterm setaf 6)
-#RESET  := $(shell tput -Txterm sgr0)
 
 # Go
 clean:
