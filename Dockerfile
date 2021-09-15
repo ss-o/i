@@ -1,4 +1,5 @@
 FROM golang:1.17.1-alpine
+LABEL maintainer="Salvydas Lukosius <sall@digitalclouds.dev>"
 
 RUN apk add --update
 RUN apk add --no-cache build-base ca-certificates openssl make
