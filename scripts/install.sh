@@ -10,7 +10,7 @@ OUT_DIR="{{ if .MoveToPath }}/usr/local/bin{{ else }}$(pwd){{ end }}"
 GH="https://github.com"
 GET_OS() {
     OS="$(uname)"
-    case $OS in
+    case "$OS" in
     Linux)
         OS='linux'
         ;;
