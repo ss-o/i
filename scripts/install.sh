@@ -8,7 +8,52 @@ RELEASE="{{ .Release }}"
 INSECURE="{{ .Insecure }}"
 OUT_DIR="{{ if .MoveToPath }}/usr/local/bin{{ else }}$(pwd){{ end }}"
 GH="https://github.com"
-
+GET_OS() {
+    OS="$(uname)"
+    case $OS in
+    Linux)
+        OS='linux'
+        ;;
+    FreeBSD)
+        OS='freebsd'
+        ;;
+    NetBSD)
+        OS='netbsd'
+        ;;
+    OpenBSD)
+        OS='openbsd'
+        ;;
+    Darwin)
+        OS='osx'
+        ;;
+    SunOS)
+        OS='solaris'
+        ;;
+    *)
+        fail 'OS not supported'
+        ;;
+    esac
+}
+OS_TYPE() {
+    ARCH="$(uname -m)"
+    case "$ARCH" in
+    x86_64 | amd64)
+        ARCH='amd64'
+        ;;
+    i?86 | x86)
+        ARCH='386'
+        ;;
+    aarch64 | arm64)
+        ARCH='arm64'
+        ;;
+    arm*)
+        ARCH='arm'
+        ;;
+    *)
+        fail 'OS type not supported'
+        ;;
+    esac
+}
 cleanup() {
 	echo rm -rf $TMP_DIR > /dev/null
 }
@@ -18,23 +63,6 @@ fail() {
 	echo "============"
 	echo "Error: $msg" 1>&2
 	exit 1
-}
-os_type() {
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	OS="linux"
-	elif [[ "$OSTYPE" == "darwin"* ]]; then
-	OS="darwin"
-		elif [[ "$OSTYPE" == "cygwin" ]]; then
-	OS="windows"
-		elif [[ "$OSTYPE" == "msys" ]]; then
-	OS="windows"
-		elif [[ "$OSTYPE" == "win32" ]]; then
-	OS="windows"
-		elif [[ "$OSTYPE" == "freebsd"* ]]; then
-	OS="freebsd"
-else
-	fail "Unknown OS"
-fi
 }
 install() {
 	[ ! "$BASH_VERSION" ] && fail "Please use bash instead"
@@ -56,15 +84,6 @@ install() {
 		GET="$GET -qO-"
 	else
 		fail "neither wget/curl are installed"
-	fi
-	if uname -m | grep 64 > /dev/null; then
-		ARCH="amd64"
-	elif uname -m | grep arm > /dev/null; then
-		ARCH="arm" #TODO armv6/v7
-	elif uname -m | grep 386 > /dev/null; then
-		ARCH="386"
-	else
-		fail "unknown arch: $(uname -m)"
 	fi
 	URL=""
 	FTYPE=""
@@ -126,7 +145,8 @@ install() {
 }
 
 while true; do
-	os_type
+	GET_OS
+	OS_TYPE
 	install
 	cleanup
 done
