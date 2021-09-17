@@ -1,4 +1,5 @@
 name: Docker CI
+
 on:
   check_run:
     types: [rerequested, completed]
@@ -42,12 +43,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      #      - name: Log into Docker Hub registry
-      #        uses: docker/login-action@v1
-      #        with:
-      #          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
         uses: docker/login-action@25c0ca8bab9893f0962d4ffd043f2b7ab90e9a3f
@@ -61,20 +56,6 @@ jobs:
         uses: docker/metadata-action@6d43bfb301c5ed182a59cfa3b21916868c62c405
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      #      - name: Build and push to Docker HUB Registry
-      #        id: docker_build
-      #        uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
-      #        with:
-      #          context: .
-      #          file: ./Dockerfile
-      #          builder: ${{ steps.buildx.outputs.name }}
-      #          push: false
-      #          tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/i:latest
-      #          cache-from: type=local,src=/tmp/.buildx-cache
-      #          cache-to: type=local,dest=/tmp/.buildx-cache
-      #      - name: Image digest
-      #        run: echo ${{ steps.docker_build.outputs.digest }}
 
       - name: Build and push to Github Container Registry
         uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
