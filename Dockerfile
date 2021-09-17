@@ -12,7 +12,7 @@ COPY . .
 RUN go get -d -v
 RUN go install -v
 RUN go mod download
-RUN make build
+RUN make vendor && make build
 
 EXPOSE 3000
 
