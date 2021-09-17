@@ -1,14 +1,6 @@
 version = 1
 
 [[analyzers]]
-name = "ruby"
-enabled = true
-
-[[analyzers]]
-name = "secrets"
-enabled = true
-
-[[analyzers]]
 name = "docker"
 enabled = true
 
@@ -22,8 +14,4 @@ enabled = true
 
 [[transformers]]
 name = "gofmt"
-enabled = true
-
-[[transformers]]
-name = "standardrb"
 enabled = true
