@@ -16,7 +16,7 @@ func (h *Handler) getAssets(q *query) error {
 	}
 	cq, ok := h.cache[key]
 	h.cacheMut.Unlock()
-	if ok && time.Now().Sub(cq.Timestamp) < cacheTTL {
+	if ok && time.Since(cq.Timestamp) < cacheTTL {
 		//cache hit
 		*q = *cq
 		return nil
