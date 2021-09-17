@@ -1,3 +1,4 @@
-tmp/
-bin/
+tmp
+bin
+vendor
 .env
