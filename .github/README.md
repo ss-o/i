@@ -6,10 +6,10 @@
 # Download release
 /<user>/<repo>@<release> | bash
 
-# Download to `/usr/local/bin`
+# Download to '/usr/local/bin'
 /<user>/<repo>@<release>\! | bash
 
-# Download to `/usr/local/bin` using `sudo`
+# Download to '/usr/local/bin' using 'sudo'
 /<user>/<repo>@<release>\!\! | bash
 ```
 
