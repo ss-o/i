@@ -114,7 +114,6 @@ install() {
 		#gz download!
 		bash -c "$GET $URL" | gzip -d - > $PROG || fail "download failed"
 	elif [[ $FTYPE = ".tar.gz" ]] || [[ $FTYPE = ".tgz" ]]; then
-		#check if archiver progs installed
 		which tar > /dev/null || fail "tar is not installed"
 		which gzip > /dev/null || fail "gzip is not installed"
 		bash -c "$GET $URL" | tar zxf - || fail "download failed"

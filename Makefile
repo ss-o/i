@@ -2,7 +2,7 @@ SHELL := /bin/sh
 
 GOCMD=go
 BINARY_NAME=i
-VERSION=1.0.0
+VERSION=1.0.1
 SERVICE_PORT=3000
 DOCKER_REGISTRY=ghcr.io/ss-o
 EXPORT_RESULT=true
@@ -13,7 +13,7 @@ clean:
 
 build:
 	mkdir -p ./bin
-	GO111MODULE=on $(GOCMD) build -mod vendor -o ./bin/$(BINARY_NAME)
+	GO111MODULE=on $(GOCMD) build -mod vendor -o ./bin/$(BINARY_NAME) .
 
 vendor:
 	$(GOCMD) mod vendor
