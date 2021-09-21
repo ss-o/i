@@ -18,8 +18,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  GH_TOKEN: ${{ secrets.GH_PUBLIC }}
-  GH_USER: ${{ secrets.GH_USER }}
 
 jobs:
   build:
