@@ -19,4 +19,3 @@ HEALTHCHECK --interval=1m --timeout=3s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
 ENTRYPOINT ["i"]
-CMD ["--token", "$GH_TOKEN"]
