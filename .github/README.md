@@ -1,5 +1,7 @@
 # `i`
 
+[![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
+
 ## Usage
 
 ```sh
