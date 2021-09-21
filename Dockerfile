@@ -13,9 +13,6 @@ RUN go install -v
 RUN go mod download
 RUN make vendor && make build
 
-ENV USER
-ENV TOKEN
-
 EXPOSE 3000
 
 HEALTHCHECK --interval=1m --timeout=3s --retries=3 \
