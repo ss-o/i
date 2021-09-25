@@ -96,13 +96,13 @@ INSTALL () {
 # shellcheck disable=SC1073
 # shellcheck disable=SC1083
 # shellcheck disable=SC1085
-
 	case "${OS}_${ARCH}" in {{ range .Assets }}
 	"{{ .OS }}_{{ .Arch }}")
 		URL="{{ .URL }}"
 		FTYPE="{{ .Type }}"
-		;;{{end}}
-	*) ERROR "No asset for platform ${OS}_${ARCH}";;
+	;;{{end}}
+	*) ERROR "No asset for platform ${OS}_${ARCH}"
+	;;
 	esac
 
 	echo -n "{{ if .MoveToPath }}Installing{{ else }}Downloading{{ end }} $USER/$PROG $RELEASE"
@@ -121,10 +121,8 @@ INSTALL () {
 
 	if [[ $FTYPE = ".gz" ]]; then
 		which gzip > /dev/null || ERROR "gzip is not installed"
-		#gzipped binary
 		NAME="${PROG}_${OS}_${ARCH}.gz"
 		GZURL="$GH/releases/download/$RELEASE/$NAME"
-		#gz download!
 		bash -c "$GET $URL" | gzip -d - > $PROG || ERROR "download failed"
 	elif [[ $FTYPE = ".tar.gz" ]] || [[ $FTYPE = ".tgz" ]]; then
 		which tar > /dev/null || ERROR "tar is not installed"
@@ -141,18 +139,15 @@ INSTALL () {
 		ERROR "Unknown file type: $FTYPE"
 	fi
 
-	# Search subtree largest file (bin)
 	TMP_BIN=$(find . -type f | xargs du | sort -n | tail -n 1 | cut -f 2)
 	if [ ! -f "$TMP_BIN" ]; then
 		ERROR "could not find find binary (largest file)"
 	fi
 
-	# Ensure its larger than 1MB
 	if [[ $(du -m $TMP_BIN | cut -f1) -lt 1 ]]; then
 		ERROR "no binary found ($TMP_BIN is not larger than 1MB)"
 	fi
 
-	# Move into PATH or cwd
 	chmod +x $TMP_BIN || ERROR "chmod +x failed"
 	{{ if .SudoMove }}echo "using sudo to move binary..."{{ end }}
 	{{ if .SudoMove }}sudo {{ end }}mv $TMP_BIN $OUT_DIR/$PROG || ERROR "mv failed"
