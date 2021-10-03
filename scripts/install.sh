@@ -45,13 +45,13 @@ OS_TYPE() {
     i?86 | x86)
         ARCH='386'
         ;;
-    aarch64 | arm64)
+    armv8* | aarch64 | arm64)
         ARCH='arm64'
         ;;
     arm*)
         ARCH='arm'
         ;;
-    mips*)
+    mip*)
         ARCH='mips'
         ;;
     *)
