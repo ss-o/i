@@ -45,11 +45,14 @@ OS_TYPE() {
     i?86 | x86)
         ARCH='386'
         ;;
-    aarch64 | arm64)
+    armv8* | aarch64* | arm64)
         ARCH='arm64'
         ;;
     arm*)
         ARCH='arm'
+        ;;
+    mips*)
+        ARCH='mips'
         ;;
     *)
         ERROR 'OS type not supported'
@@ -108,12 +111,12 @@ INSTALL () {
 	echo -n "{{ if .MoveToPath }}Installing{{ else }}Downloading{{ end }} $USER/$PROG $RELEASE"
 	{{ if .Google }}
 	echo -n " in 5 seconds"
-	for i in 1 2 3 4 5; do
+	for i in 1 2 3 4 5 6 7 8 9 10; do
 		sleep 1
-		echo -n "."
+		echo -n "-"
 	done
 	{{ else }}
-	echo "....."
+	echo "----------"
 	{{ end }}
 
 	mkdir -p $TMP_DIR
