@@ -45,7 +45,7 @@ OS_TYPE() {
     i?86 | x86)
         ARCH='386'
         ;;
-    armv8l | armv8b | aarch64 | arm64)
+    aarch64 | arm64)
         ARCH='arm64'
         ;;
     arm*)
