@@ -16,8 +16,7 @@ vendor:
 	$(GOCMD) mod vendor
 
 statik:
-	cd handler
-	go generate
+	cd handler && go generate
 
 ## Docker:
 docker-watch:
