@@ -9,7 +9,7 @@ var (
 	archRe    = regexp.MustCompile(`(arm|arm64|armv8|aarch64|386|amd64|32|64|mips|mips64)`)
 	fileExtRe = regexp.MustCompile(`(\.[a-z][a-z0-9]+)+$`)
 	posixOSRe = regexp.MustCompile(`(darwin|linux|(net|free|open)bsd|mac|osx|windows|win)`)
-)
+
 
 func getOS(s string) string {
 	s = strings.ToLower(s)
