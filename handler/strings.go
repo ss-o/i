@@ -31,8 +31,8 @@ func getArch(s string) string {
 	} else if a == "x32" {
 		a = "386"
 	} else if a == "armv8" || a == "aarch64" {
-                a = "arm64"
-        }
+		a = "arm64"
+	}
 	return a
 }
 
