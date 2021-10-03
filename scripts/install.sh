@@ -10,43 +10,41 @@ OUT_DIR="{{ if .MoveToPath }}/usr/local/bin{{ else }}$(pwd){{ end }}"
 GH="https://github.com"
 
 GET_OS() {
-if [[ "$OSTYPE" == "cygwin" ]]; then
-        OS='windows'
-elif [[ "$OSTYPE" == "msys" ]]; then
-        OS='windows'
-elif [[ "$OSTYPE" == "win32" ]]; then
-        OS='windows'
-else
-	OS="$(uname)"
-    case "$OS" in
-    Linux)
+	OS="$(command -v uname)"
+    case $( "${OS}" | tr '[:upper:]' '[:lower:]') in
+    linux*)
         OS='linux'
         ;;
-    FreeBSD)
+    freebsd*)
         OS='freebsd'
         ;;
-    NetBSD)
+    netbsd*)
         OS='netbsd'
         ;;
-    OpenBSD)
+    openbsd*)
         OS='openbsd'
         ;;
-    Darwin)
+    darwin*)
         OS='darwin'
         ;;
-    SunOS)
+    sunos*)
         OS='solaris'
         ;;
+	msys*|cygwin*|mingw*)
+		OS='windows'
+		;;
+	nt|win*)
+		OS='windows'
+		;;
     *)
 	ERROR 'OS not supported'
         ;;
     esac
-fi
 }
 
-OS_TYPE() {
-    ARCH="$(uname -m)"
-    case "$ARCH" in
+GET_OS_TYPE() {
+    ARCH="$(command -v uname) -m"
+    case "${ARCH}" in
     x86_64 | amd64)
         ARCH='amd64'
         ;;
@@ -56,10 +54,10 @@ OS_TYPE() {
     armv8* | aarch64 | arm64)
         ARCH='arm64'
         ;;
-    armv7)
+    armv7*)
         ARCH='armv7'
         ;;
-    armv6)
+    armv6*)
         ARCH='armv6'
         ;;
     arm*)
@@ -81,12 +79,11 @@ CLEANUP() {
 ERROR() {
 	CLEANUP
 	msg="$1"
-	echo "## ==================== ##"
+	echo "# === === === === === === #"
 	echo "Error: $msg" 1>&2
 	exit 1
 }
-# shellcheck disable=SC1009
-INSTALL () {
+GET_URL() {
 	[ ! "$BASH_VERSION" ] && ERROR "Please use bash instead"
 	[ ! -d $OUT_DIR ] && ERROR "output directory missing: $OUT_DIR"
 		which find > /dev/null || ERROR "find not installed"
@@ -113,6 +110,7 @@ INSTALL () {
 # shellcheck disable=SC1073
 # shellcheck disable=SC1083
 # shellcheck disable=SC1085
+# shellcheck disable=SC1009
 	case "${OS}_${ARCH}" in {{ range .Assets }}
 	"{{ .OS }}_{{ .Arch }}")
 		URL="{{ .URL }}"
@@ -121,16 +119,18 @@ INSTALL () {
 	*) ERROR "No asset for platform ${OS}_${ARCH}"
 	;;
 	esac
+}
 
+INSTALL () {
 	echo -n "{{ if .MoveToPath }}Installing{{ else }}Downloading{{ end }} $USER/$PROG $RELEASE"
 	{{ if .Google }}
 	echo -n " in 10 seconds"
 	for i in 1 2 3 4 5 6 7 8 9 10; do
 		sleep 1
-		echo -n "-"
+		echo -n "__"
 	done
 	{{ else }}
-	echo "----------"
+	echo "____________________"
 	{{ end }}
 
 	mkdir -p $TMP_DIR
@@ -171,10 +171,14 @@ INSTALL () {
 	echo "{{ if .MoveToPath }}Installed at{{ else }}Downloaded to{{ end }} $OUT_DIR/$PROG"
 }
 
-while true; do
+MAIN() {
 	GET_OS
-	OS_TYPE
+	GET_OS_TYPE
+	GET_URL
 	INSTALL
 	CLEANUP
 	exit 0
+}
+while true; do
+	MAIN "${@}"
 done

@@ -10,8 +10,6 @@ import (
 
 var searchGithubRe = regexp.MustCompile(`https:\/\/github\.com\/(\w+)\/(\w+)`)
 
-//uses im feeling lucky and grabs the "Location"
-//header from the 302, which contains the IMDB ID
 func searchGoogle(phrase string) (user, project string, err error) {
 	phrase += " site:github.com"
 	log.Printf("google search for '%s'", phrase)
@@ -24,9 +22,7 @@ func searchGoogle(phrase string) (user, project string, err error) {
 		return "", "", err
 	}
 	req.Header.Set("Accept", "*/*")
-	//I'm a browser... :)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36")
-	//roundtripper doesn't follow redirects
 	resp, err := http.DefaultTransport.RoundTrip(req)
 	if err != nil {
 		return "", "", fmt.Errorf("request failed: %s", err)

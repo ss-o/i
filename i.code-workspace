@@ -8,6 +8,9 @@
 		"cSpell.ignoreWords": [
 			"Buildx",
 			"rerequested"
+		],
+		"cSpell.enableFiletypes": [
+			"shellscript"
 		]
 	}
 }

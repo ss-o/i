@@ -8,7 +8,6 @@ import (
 )
 
 func (h *Handler) getAssets(q *query) error {
-	//cached?
 	key := q.cacheKey()
 	h.cacheMut.Lock()
 	if h.cache == nil {
@@ -21,7 +20,7 @@ func (h *Handler) getAssets(q *query) error {
 		*q = *cq
 		return nil
 	}
-	//do real operation
+
 	err := h.getAssetsNoCache(q)
 	if err == nil {
 		//didn't need google
@@ -37,7 +36,6 @@ func (h *Handler) getAssets(q *query) error {
 			}
 			q.Program = program
 			q.User = user
-			//retry assets...
 			err = h.getAssetsNoCache(q)
 		}
 	}
@@ -69,7 +67,7 @@ func (h *Handler) getAssetsNoCache(q *query) error {
 		if err := h.get(url, &ghr); err != nil {
 			return err
 		}
-		q.Release = ghr.TagName //discovered
+		q.Release = ghr.TagName
 		ghas = ghr.Assets
 	} else {
 		ghrs := []ghRelease{}
@@ -119,7 +117,6 @@ func (h *Handler) getAssetsNoCache(q *query) error {
 		if os == "" {
 			continue
 		}
-		//there can only be 1 file for each OS/Arch
 		key := os + "/" + arch
 		if index[key] {
 			continue

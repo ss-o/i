@@ -7,7 +7,6 @@ type Config struct {
 	Token string `opts:"help=github api token, env=GH_TOKEN"`
 }
 
-//DefaultConfig for an installer handler
 var DefaultConfig = Config{
 	Port: 3000,
 	User: "ss-o",
