@@ -10,7 +10,14 @@ OUT_DIR="{{ if .MoveToPath }}/usr/local/bin{{ else }}$(pwd){{ end }}"
 GH="https://github.com"
 
 GET_OS() {
-    OS="$(uname)"
+if [[ "$OSTYPE" == "cygwin" ]]; then
+        OS='windows'
+elif [[ "$OSTYPE" == "msys" ]]; then
+        OS='windows'
+elif [[ "$OSTYPE" == "win32" ]]; then
+        OS='windows'
+else
+	OS="$(uname)"
     case "$OS" in
     Linux)
         OS='linux'
@@ -31,9 +38,10 @@ GET_OS() {
         OS='solaris'
         ;;
     *)
-        ERROR 'OS not supported'
+	ERROR 'OS not supported'
         ;;
     esac
+fi
 }
 
 OS_TYPE() {
