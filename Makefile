@@ -15,6 +15,10 @@ build:
 vendor:
 	$(GOCMD) mod vendor
 
+statik:
+	cd handler
+	go generate
+
 ## Docker:
 docker-watch:
 	$(eval PACKAGE_NAME=$(shell head -n 1 go.mod | cut -d ' ' -f2))
