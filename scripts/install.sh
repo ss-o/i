@@ -48,10 +48,16 @@ OS_TYPE() {
     armv8* | aarch64 | arm64)
         ARCH='arm64'
         ;;
+    armv7)
+        ARCH='armv7'
+        ;;
+    armv6)
+        ARCH='armv6'
+        ;;
     arm*)
         ARCH='arm'
         ;;
-    mip*)
+    mips*)
         ARCH='mips'
         ;;
     *)
