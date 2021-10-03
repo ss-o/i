@@ -110,7 +110,7 @@ INSTALL () {
 
 	echo -n "{{ if .MoveToPath }}Installing{{ else }}Downloading{{ end }} $USER/$PROG $RELEASE"
 	{{ if .Google }}
-	echo -n " in 5 seconds"
+	echo -n " in 10 seconds"
 	for i in 1 2 3 4 5 6 7 8 9 10; do
 		sleep 1
 		echo -n "-"

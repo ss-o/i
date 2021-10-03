@@ -6,10 +6,10 @@ import (
 )
 
 var (
-	archRe    = regexp.MustCompile(`(arm|arm64|armv8|aarch64|386|amd64|32|64|mips|mips64)`)
+	archRe    = regexp.MustCompile(`(armv8|aarch64|arm64|arm|386|amd64|x32|x64|mips)`)
 	fileExtRe = regexp.MustCompile(`(\.[a-z][a-z0-9]+)+$`)
-	posixOSRe = regexp.MustCompile(`(darwin|linux|(net|free|open)bsd|mac|osx|windows|win)`)
-
+	posixOSRe = regexp.MustCompile(`(darwin|linux|(net|free|open)bsd|mac|osx|windows|win|solaris)`)
+)
 
 func getOS(s string) string {
 	s = strings.ToLower(s)
@@ -26,11 +26,13 @@ func getOS(s string) string {
 func getArch(s string) string {
 	s = strings.ToLower(s)
 	a := archRe.FindString(s)
-	if a == "64" || a == "" {
+	if a == "x64" || a == "" {
 		a = "amd64"
-	} else if a == "32" {
+	} else if a == "x32" {
 		a = "386"
-	}
+	} else if a == "armv8" || a == "aarch64" {
+                a = "arm64"
+        }
 	return a
 }
 
