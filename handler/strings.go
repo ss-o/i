@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	archRe    = regexp.MustCompile(`(aarch64|armv6|armv7|armv8|arm64|arm|x32|amd32|x86(-|_)?32|386|x64|amd64|x86(-|_)?64|mips64le|mips64|mipsle|mips|ppc64le|ppc64|ppc|ppcle|s390x)`)
+	archRe    = regexp.MustCompile(`(aarch64|armv6|armv7|armv8|arm64|arm|amd32|x32|x86(-|_)?32|386|amd64|x64|x86(-|_)?64|mips64le|mips64|mipsle|mips|ppc64le|ppc64|ppc|ppcle|s390x)`)
 	fileExtRe = regexp.MustCompile(`(\.[a-z][a-z0-9]+)+$`)
 	posixOSRe = regexp.MustCompile(`(android|darwin|linux|(net|free|open)bsd|mac|osx|windows|win|solaris)`)
 )
