@@ -1,0 +1,7 @@
+{
+  "name": "i",
+  "description": "Lightweight 'HTTP Server' based on 'Go'",
+  "repository": "https://github.com/ss-o/i",
+  "logo": "https://g-assets.ss-o.workers.dev/img/digital-clouds/svg/logo.svg",
+  "keywords": ["Go", "Assets", "Github"]
+}
