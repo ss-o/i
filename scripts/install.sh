@@ -1,20 +1,28 @@
 #!/usr/bin/env bash
 
-TMP_DIR="/tmp/get-it"
+TMP_DIR="/tmp/i_temp"
+ERR_LOG="/tmp/i.log"
+GH="https://github.com"
+
 USER="{{ .User }}"
 PROG="{{ .Program }}"
 MOVE="{{ .MoveToPath }}"
 RELEASE="{{ .Release }}"
 INSECURE="{{ .Insecure }}"
 OUT_DIR="{{ if .MoveToPath }}/usr/local/bin{{ else }}$(pwd){{ end }}"
-GH="https://github.com"
 
 GET_OS() {
 	OS="$(command -v uname)"
     case $( "${OS}" | tr '[:upper:]' '[:lower:]') in
+    android*)
+	OS='android'
+	;;
+    darwin*)
+        OS='darwin'
+        ;;
     linux*)
         OS='linux'
-        ;;
+        ;;	
     freebsd*)
         OS='freebsd'
         ;;
@@ -23,9 +31,6 @@ GET_OS() {
         ;;
     openbsd*)
         OS='openbsd'
-        ;;
-    darwin*)
-        OS='darwin'
         ;;
     sunos*)
         OS='solaris'
@@ -36,17 +41,14 @@ GET_OS() {
     nt|win*)
 	OS='windows'
 	;;
-    android*)
-	OS='android'
-	;;
     *)
-	ERROR 'OS not supported'
+        ERROR 'OS not supported'
         ;;
     esac
 }
 
 GET_CPU() {
-    ARCH="$(uname -m)"
+	ARCH="$(uname -m)"
     case "${ARCH}" in
     x86_64|amd64)
         ARCH='amd64'
@@ -105,21 +107,24 @@ CLEANUP() {
 
 ERROR() {
 	CLEANUP
-	msg="$1"
-	echo "# === === === === === === #"
-	echo "Error: $msg" 1>&2
+	MSG="${1}"
+	echo "# ================== #"
+	echo "Error: $MSG" 1>&2
 	exit 1
 }
 
+PRE_CHECK() {
+	[ ! "$BASH_VERSION" ] && ERROR "(bash) required to run"
+	[ ! -d $OUT_DIR ] && ERROR "(output directory) missing $OUT_DIR"
+		which find > /dev/null || ERROR "(find) required to proceed"
+		which xargs > /dev/null || ERROR "(xargs) required to proceed"
+		which sort > /dev/null || ERROR "(sort) required to proceed"
+		which tail > /dev/null || ERROR "(tail) required to proceed"
+		which cut > /dev/null || ERROR "(cut) required to proceed"
+		which du > /dev/null || ERROR "(du) required to proceed"
+}
+
 GET_URL() {
-	[ ! "$BASH_VERSION" ] && ERROR "Please use bash instead"
-	[ ! -d $OUT_DIR ] && ERROR "output directory missing: $OUT_DIR"
-		which find > /dev/null || ERROR "find not installed"
-		which xargs > /dev/null || ERROR "xargs not installed"
-		which sort > /dev/null || ERROR "sort not installed"
-		which tail > /dev/null || ERROR "tail not installed"
-		which cut > /dev/null || ERROR "cut not installed"
-		which du > /dev/null || ERROR "du not installed"
 	GET=""
 	if which curl > /dev/null; then
 		GET="curl"
@@ -130,7 +135,7 @@ GET_URL() {
 		if [[ $INSECURE = "true" ]]; then GET="$GET --no-check-certificate"; fi
 		GET="$GET -qO-"
 	else
-		ERROR "neither wget/curl are installed"
+		ERROR "(curl/wget) required to proceed"
 	fi
 	URL=""
 	FTYPE=""
@@ -144,7 +149,7 @@ GET_URL() {
 		URL="{{ .URL }}"
 		FTYPE="{{ .Type }}"
 	;;{{end}}
-	*) ERROR "No asset for platform ${OS}_${ARCH}"
+	*) ERROR "Unable to find assets for ${OS}_${ARCH}"
 	;;
 	esac
 }
@@ -155,51 +160,55 @@ INSTALL () {
 	echo -n " in 10 seconds"
 	for i in 1 2 3 4 5 6 7 8 9 10; do
 		sleep 1
-		echo -n "__"
+		echo -n " >"
 	done
 	{{ else }}
-	echo "____________________"
+	echo " > > > > > > > > > >"
 	{{ end }}
 
-	mkdir -p $TMP_DIR
-	cd $TMP_DIR
+	mkdir -p $TMP_DIR || ERROR "(command mkdir -p $TMP_DIR) failure"
+	cd $TMP_DIR || ERROR "(command cd $TMP_DIR) failure"
 
 	if [[ $FTYPE = ".gz" ]]; then
-		which gzip > /dev/null || ERROR "gzip is not installed"
+		which gzip > /dev/null || ERROR "(gzip) required to proceed"
 		NAME="${PROG}_${OS}_${ARCH}.gz"
 		GZURL="$GH/releases/download/$RELEASE/$NAME"
-		bash -c "$GET $URL" | gzip -d - > $PROG || ERROR "download failed"
+		bash -c "$GET $URL" | gzip -d - > $PROG || ERROR ""
+
 	elif [[ $FTYPE = ".tar.gz" ]] || [[ $FTYPE = ".tgz" ]]; then
-		which tar > /dev/null || ERROR "tar is not installed"
-		which gzip > /dev/null || ERROR "gzip is not installed"
-		bash -c "$GET $URL" | tar zxf - || ERROR "download failed"
+		which tar > /dev/null || ERROR "(tar) required to proceed"
+		which gzip > /dev/null || ERROR "(gzip) required to proceed"
+		bash -c "$GET $URL" | tar zxf - || ERROR "(download) process failure"
+
 	elif [[ $FTYPE = ".zip" ]]; then
-		which unzip > /dev/null || ERROR "unzip is not installed"
-		bash -c "$GET $URL" > tmp.zip || ERROR "download failed"
-		unzip -o -qq tmp.zip || ERROR "unzip failed"
-		rm tmp.zip || ERROR "cleanup failed"
+		which unzip > /dev/null || ERROR "(unzip) required to proceed"
+		bash -c "$GET $URL" > tmp.zip || ERROR "(download) process failure"
+		unzip -o -qq tmp.zip || ERROR "(unzip) process failure"
+		rm tmp.zip || ERROR "(cleanup) process failure"
+
 	elif [[ $FTYPE = "" ]]; then
-		bash -c "$GET $URL" > "{{ .Program }}_${OS}_${ARCH}" || ERROR "download failed"
+		bash -c "$GET $URL" > "{{ .Program }}_${OS}_${ARCH}" || ERROR "(download) process failure"
 	else
-		ERROR "Unknown file type: $FTYPE"
+		ERROR "(file type $FTYPE) not supported"
 	fi
 
 	TMP_BIN=$(find . -type f | xargs du | sort -n | tail -n 1 | cut -f 2)
 	if [ ! -f "$TMP_BIN" ]; then
-		ERROR "could not find find binary (largest file)"
+		ERROR "(find binary) process failure"
 	fi
 
 	if [[ $(du -m $TMP_BIN | cut -f1) -lt 1 ]]; then
-		ERROR "no binary found ($TMP_BIN is not larger than 1MB)"
+		ERROR "(file size 1MB) expected for $TMP_BIN"
 	fi
 
-	chmod +x $TMP_BIN || ERROR "chmod +x failed"
+	chmod +x $TMP_BIN || ERROR "(command chmod +x) failure"
 	{{ if .SudoMove }}echo "using sudo to move binary..."{{ end }}
-	{{ if .SudoMove }}sudo {{ end }}mv $TMP_BIN $OUT_DIR/$PROG || ERROR "mv failed"
+	{{ if .SudoMove }}sudo {{ end }}mv $TMP_BIN $OUT_DIR/$PROG || ERROR "(command mv) failure"
 	echo "{{ if .MoveToPath }}Installed at{{ else }}Downloaded to{{ end }} $OUT_DIR/$PROG"
 }
 
 MAIN() {
+	PRE_CHECK
 	GET_OS
 	GET_CPU
 	GET_URL
@@ -207,6 +216,7 @@ MAIN() {
 	CLEANUP
 	exit 0
 }
+
 while true; do
 	MAIN "${@}"
 done
