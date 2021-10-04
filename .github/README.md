@@ -11,7 +11,7 @@
 ---
 
 <div align="center">
-Lightweight 'HTTP Server' based on 'Go', will try detecting OS and architecture to return as 'Shell' script. Accessing from the browser will allow choosing from a selection of URLs, which also can be accessed in the terminal with additional optionality.
+Lightweight 'HTTP Server' based on 'Go', will try detect OS and architecture to return as 'Shell' script. Accessing from the browser will allow choosing from a selection of URLs, which also can be accessed in the terminal with additional optionality.
 </div>
   
 ## 📶 Try it
