@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   i-get:
-#    build: .
-    image: ghcr.io/ss-o/i:latest
+    build: .
+#    image: ghcr.io/ss-o/i:latest
     container_name: i-get
     restart: always
     ports:
