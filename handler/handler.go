@@ -142,8 +142,8 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				fmt.Fprintf(w, "  [#%02d] %s\n", i+1, a.URL)
 			}
 			fmt.Fprintf(w, "move-into-path: %v\n", q.MoveToPath)
-//			fmt.Fprintf(w, "\nto see shell script, visit:\n  %s%s?type=script\n", r.Host, r.URL.String())
-//			https://cwe.mitre.org/data/definitions/79.html
+			//			fmt.Fprintf(w, "\nto see shell script, visit:\n  %s%s?type=script\n", r.Host, r.URL.String())
+			//			https://cwe.mitre.org/data/definitions/79.html
 			reader := strings.NewReader(w, "\nto see shell script, visit:\n  %s%s?type=script\n", r.Host, r.URL.String())
 			io.Copy(w, reader)
 			fmt.Fprintf(w, "\nfor more information on this server, visit:\n  github.com/ss-o/i\n")
