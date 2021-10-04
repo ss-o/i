@@ -90,8 +90,9 @@ GET_CPU() {
     ppc*)
         ARCH='ppc'
 	;;
-    s390x*)
+    s390*)
 	ARCH='s390x'
+	;;
     *)
         ERROR 'OS type not supported'
         ;;
