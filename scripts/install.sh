@@ -36,6 +36,9 @@ GET_OS() {
     nt|win*)
 	OS='windows' 
 	;;
+    android*)
+	OS='android'
+	;;
     *)
 	ERROR 'OS not supported'
         ;;
