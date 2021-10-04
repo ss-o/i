@@ -1,7 +1,7 @@
 {
   "name": "i",
-  "description": "Lightweight 'HTTP Server' based on 'Go'",
+  "description": "Binary installer - lightweight 'HTTP Server' based on 'Go'",
   "repository": "https://github.com/ss-o/i",
-  "logo": "https://g-assets.ss-o.workers.dev/img/digital-clouds/svg/logo.svg",
+  "logo": "https://g-assets.ss-o.workers.dev/img/digital-clouds/png/w600/600x600.png",
   "keywords": ["Go", "Assets", "Github"]
 }
