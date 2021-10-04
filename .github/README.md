@@ -1,9 +1,12 @@
 # `i`
 
+<div align="center">
+
+<img src="https://github.githubassets.com/images/modules/site/social-cards/git-guides/install-git.png" width="600" height="300">
+
 [![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
 [![Release CI](https://github.com/ss-o/i/actions/workflows/release.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/release.yml)
-
----
+</div>
 
 ## Try it
 
