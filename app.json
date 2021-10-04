@@ -5,5 +5,4 @@
   "repository": "https://github.com/ss-o/i",
   "logo": "https://g-assets.ss-o.workers.dev/img/digital-clouds/png/w600/600x600.png",
   "keywords": ["Go", "Assets", "Github", "Shell"]
-  "buildpacks": ["url": "https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-go"]
 }
