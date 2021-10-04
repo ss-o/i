@@ -91,3 +91,8 @@ curl https://get.digitalclouds.one/ss-o/i\!\! | bash
 # Run to see options
 i --help
 ```
+
+### 🧰 Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/ss-o/i)
+
