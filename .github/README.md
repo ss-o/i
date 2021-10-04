@@ -72,10 +72,21 @@ GH_TOKEN  ||  Set GitHub API
 ### 📥 Go
 
 ```sh
+# Go install
 go install github.com/ss-o/i@latest
 # Run to see options
 i --help
 ```
+
+```sh
+# Build
+git clone https://github.com/ss-o/i && \
+cd i && \
+make vendor && \
+make build && \
+./bin/i
+```
+
 
 ### 🐳 Docker
 
@@ -90,6 +101,12 @@ docker run -d -p 3000:3000 --restart always --name i-get ghcr.io/ss-o/i:latest \
 --token yourgithubtoken --user yourusername
 ```
 
+```sh
+# From Git
+git clone https://github.com/ss-o/i && \
+cd i && \
+docker-compose up
+```
 > Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml)
 
 ```sh
