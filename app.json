@@ -1,7 +1,7 @@
 {
-  "name": "i",
-  "description": "Binary installer - lightweight 'HTTP Server' based on 'Go'",
+  "name": "i-get",
+  "description": "Lightweight 'HTTP Server' based on 'Go', will try detect OS and architecture to return as 'Shell' script.",
   "repository": "https://github.com/ss-o/i",
   "logo": "https://g-assets.ss-o.workers.dev/img/digital-clouds/png/w600/600x600.png",
-  "keywords": ["Go", "Assets", "Github"]
+  "keywords": ["Go", "Assets", "Github", "Shell"]
 }
