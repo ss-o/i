@@ -10,7 +10,7 @@ clean:
 
 build:
 	mkdir -p ./bin
-	GO111MODULE=on $(GOCMD) build -mod vendor -o ./bin/$(BINARY_NAME) .
+	CGO_ENABLED=0 GO111MODULE=on $(GOCMD) build -mod vendor -o ./bin/$(BINARY_NAME) .
 
 vendor:
 	$(GOCMD) mod vendor
