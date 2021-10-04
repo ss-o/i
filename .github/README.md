@@ -21,11 +21,20 @@ https://get.digitalclouds.one/DNSCrypt/dnscrypt-proxy
 
 ```sh
 curl https://get.digitalclouds.one/<user>/<repo>@<release> | bash
-# Example find latest binary
+```
+- Example find latest binary
+
+```sh
 curl https://get.digitalclouds.one/coredns | bash
-# Specific version
+```
+- Specific version
+
+```
 curl https://get.digitalclouds.one/coredns/coredns@v1.8.0 | bash
-# Latest binary to PATH with sudo
+```
+- Latest binary to PATH with sudo
+
+```
 curl https://get.digitalclouds.one/coredns/coredns\!\! | bash
 ```
 
@@ -71,22 +80,18 @@ GH_TOKEN  ||  Set GitHub API
 
 ### 📥 Go
 
+
+- Go install
+
 ```sh
-# Go install
 go install github.com/ss-o/i@latest
-# Run to see options
+```
+
+- Run to see options
+
+```sh
 i --help
 ```
-
-```sh
-# Build
-git clone https://github.com/ss-o/i && \
-cd i && \
-make vendor && \
-make build && \
-./bin/i
-```
-
 
 ### 🐳 Docker
 
@@ -101,16 +106,11 @@ docker run -d -p 3000:3000 --restart always --name i-get ghcr.io/ss-o/i:latest \
 --token yourgithubtoken --user yourusername
 ```
 
-```sh
-# From Git
-git clone https://github.com/ss-o/i && \
-cd i && \
-docker-compose up
-```
 > Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml)
 
+- Try
+
 ```sh
-# Try
 curl http://localhost:3000/<user>/<repo>@<release> | bash
 ```
 
@@ -118,7 +118,6 @@ curl http://localhost:3000/<user>/<repo>@<release> | bash
 
 ```sh
 curl https://get.digitalclouds.one/ss-o/i\!\! | bash
-# Run to see options
 i --help
 ```
 
