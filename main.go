@@ -9,7 +9,7 @@ import (
 	"github.com/ss-o/i/handler"
 )
 
-var version = "1.0.9"
+var version = "1.1.0"
 
 func main() {
 	c := handler.DefaultConfig
