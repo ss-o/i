@@ -30,10 +30,10 @@ GET_OS() {
     sunos*)
         OS='solaris'
         ;;
-	msys*|cygwin*|mingw*)
+    msys*|cygwin*|mingw*)
 	OS='windows' 
 	;;
-	nt|win*)
+    nt|win*)
 	OS='windows' 
 	;;
     *)
