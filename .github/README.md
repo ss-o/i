@@ -80,7 +80,20 @@ i --help
 ### 🐳 Docker
 
 ```sh
-docker run -d -p 3000:3000 --restart always --name get-it ghcr.io/ss-o/i:latest
+docker run -it --rm -p 3000:3000 ghcr.io/ss-o/i:latest \
+--token yourgithubtoken --user yourusername
+```
+
+```sh
+# Run detached
+docker run -d -p 3000:3000 --restart always --name i-get ghcr.io/ss-o/i:latest \
+--token yourgithubtoken --user yourusername
+```
+
+> Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml)
+
+```sh
+# Try
 curl http://localhost:3000/<user>/<repo>@<release> | bash
 ```
 
