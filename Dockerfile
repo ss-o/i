@@ -4,11 +4,13 @@ LABEL maintainer="Salvydas Lukosius <sall@digitalclouds.dev>"
 LABEL org.opencontainers.image.source = "https://github.com/ss-o/i"
 
 RUN apk add --no-cache \
-ca-certificates=~20191127-r6 \
-openssl=~3.0.0-r2 \
-make=~4.3-r0 \
-git=~2.33.0-r2 \
-wget=~1.21.2-r1
+ca-certificates=~20191127 \
+openssl=~1.1.1 \
+make=~4.3 \
+git=~2.32 \
+wget=~1.21 \
+curl=~7.79 \
+&& rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
