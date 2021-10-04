@@ -31,10 +31,10 @@ GET_OS() {
         OS='solaris'
         ;;
 	msys*|cygwin*|mingw*)
-		OS='windows'
+		OS='windows' 
 		;;
 	nt|win*)
-		OS='windows'
+		OS='windows' 
 		;;
     *)
 	ERROR 'OS not supported'
@@ -42,16 +42,16 @@ GET_OS() {
     esac
 }
 
-GET_OS_TYPE() {
+GET_CPU() {
     ARCH="$(command -v uname) -m"
     case "${ARCH}" in
-    x86_64 | amd64)
+    x86_64|x64|amd64)
         ARCH='amd64'
         ;;
-    i?86 | x86)
+    i?86|x86|x32|amd32)
         ARCH='386'
         ;;
-    armv8* | aarch64 | arm64)
+    armv8*|aarch64|arm64)
         ARCH='arm64'
         ;;
     armv7*)
@@ -62,10 +62,10 @@ GET_OS_TYPE() {
         ;;
     arm*)
         ARCH='arm'
-        ;;
+		;;
     mips*)
         ARCH='mips'
-        ;;
+		;;
     *)
         ERROR 'OS type not supported'
         ;;
@@ -83,6 +83,7 @@ ERROR() {
 	echo "Error: $msg" 1>&2
 	exit 1
 }
+
 GET_URL() {
 	[ ! "$BASH_VERSION" ] && ERROR "Please use bash instead"
 	[ ! -d $OUT_DIR ] && ERROR "output directory missing: $OUT_DIR"
@@ -173,7 +174,7 @@ INSTALL () {
 
 MAIN() {
 	GET_OS
-	GET_OS_TYPE
+	GET_CPU
 	GET_URL
 	INSTALL
 	CLEANUP

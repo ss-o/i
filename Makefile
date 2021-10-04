@@ -6,7 +6,7 @@ SERVICE_PORT=3000
 
 # Go
 clean:
-	rm -fr ./bin
+	rm -fr ./bin ./vendor
 
 build:
 	mkdir -p ./bin

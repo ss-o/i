@@ -7,10 +7,12 @@
 	"settings": {
 		"cSpell.ignoreWords": [
 			"Buildx",
+			"armv",
 			"rerequested"
 		],
 		"cSpell.enableFiletypes": [
-			"shellscript"
+			"go.mod",
+			"go.sum"
 		]
 	}
 }

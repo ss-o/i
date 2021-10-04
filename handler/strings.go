@@ -26,9 +26,9 @@ func getOS(s string) string {
 func getArch(s string) string {
 	s = strings.ToLower(s)
 	a := archRe.FindString(s)
-	if a == "x64" || a == "x86_64" || a == "x86-64" {
+	if a == "x64" {
 		a = "amd64"
-	} else if a == "x32" || a == "amd32" || a == "x86_32" || a == "x86-32" {
+	} else if a == "x32" {
 		a = "386"
 	}
 	return a
