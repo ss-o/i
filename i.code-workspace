@@ -7,8 +7,18 @@
 	"settings": {
 		"cSpell.ignoreWords": [
 			"Buildx",
+			"Commitish",
 			"armv",
-			"rerequested"
+			"commitish",
+			"dont",
+			"fext",
+			"gerr",
+			"ghas",
+			"ghrs",
+			"reponse",
+			"rerequested",
+			"useb",
+			"zyedidia"
 		],
 		"cSpell.enableFiletypes": [
 			"go.mod",
