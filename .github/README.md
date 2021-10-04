@@ -2,7 +2,7 @@
 
 <div align="center">
 
-  <img src="https://github.githubassets.com/images/modules/site/social-cards/git-guides/install-git.png" width="600" height="300">
+  <img src="https://g-assets.ss-o.workers.dev/img/digital-clouds/png/w600/600x600.png" width="300" height="300">
   
 [![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
 [![Release CI](https://github.com/ss-o/i/actions/workflows/release.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/release.yml)
