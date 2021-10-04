@@ -31,11 +31,11 @@ GET_OS() {
         OS='solaris'
         ;;
 	msys*|cygwin*|mingw*)
-		OS='windows' 
-		;;
+	OS='windows' 
+	;;
 	nt|win*)
-		OS='windows' 
-		;;
+	OS='windows' 
+	;;
     *)
 	ERROR 'OS not supported'
         ;;
@@ -48,7 +48,7 @@ GET_CPU() {
     x86_64|x64|amd64)
         ARCH='amd64'
         ;;
-    i?86|x86|x32|amd32)
+    i?86|x86|amd32)
         ARCH='386'
         ;;
     armv8*|aarch64|arm64)
@@ -62,11 +62,32 @@ GET_CPU() {
         ;;
     arm*)
         ARCH='arm'
-		;;
+	;;
+    mips64le*)
+        ARCH='mips64le'
+	;;
+    mipsle*)
+        ARCH='mipsle'
+	;;
+    mips64*)
+        ARCH='mips64'
+	;;
     mips*)
         ARCH='mips'
-		;;
-    *)
+	;;
+    ppc64le*)
+        ARCH='ppc64le'
+	;;
+    ppc64*)
+        ARCH='ppc64'
+	;;
+    ppcle*)
+        ARCH='ppcle'
+	;;
+    ppc*)
+        ARCH='ppc'
+	;;
+     *)
         ERROR 'OS type not supported'
         ;;
     esac
