@@ -31,10 +31,10 @@ GET_OS() {
         OS='solaris'
         ;;
     msys*|cygwin*|mingw*)
-	OS='windows' 
+	OS='windows'
 	;;
     nt|win*)
-	OS='windows' 
+	OS='windows'
 	;;
     android*)
 	OS='android'
@@ -46,12 +46,12 @@ GET_OS() {
 }
 
 GET_CPU() {
-    ARCH="$(command -v uname) -m"
+    ARCH="$(uname -m)"
     case "${ARCH}" in
-    x86_64|x64|amd64)
+    x86_64|amd64)
         ARCH='amd64'
         ;;
-    i?86|x86|amd32)
+    i?86|x86)
         ARCH='386'
         ;;
     armv8*|aarch64|arm64)
