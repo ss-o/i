@@ -66,11 +66,11 @@ GET_CPU() {
     mips64le*)
         ARCH='mips64le'
 	;;
-    mipsle*)
-        ARCH='mipsle'
-	;;
     mips64*)
         ARCH='mips64'
+	;;
+    mipsle*)
+        ARCH='mipsle'
 	;;
     mips*)
         ARCH='mips'
