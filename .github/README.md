@@ -7,6 +7,9 @@
 [![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
 [![Release CI](https://github.com/ss-o/i/actions/workflows/release.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/release.yml)
 [![DeepSource](https://deepsource.io/gh/ss-o/i.svg/?label=active+issues&show_trend=true&token=KQ8QR8GCSTxHYNoEiG9S1U0L)](https://deepsource.io/gh/ss-o/i/?ref=repository-badge)
+[![Known Vulnerabilities][(https://snyk.io/test/github/ss-o/i/badge.svg)](https://snyk.io/test/github/ss-o/i/badge.svg)
+
+
 </div>
 
 ---
