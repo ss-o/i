@@ -2,16 +2,17 @@ name: Docker CI
 
 on:
   schedule:
-    - cron: "0 2 * * 2"
+    - cron: "0 3 * * 0"
   push:
-    branches: [main]
+    branches: [alpha]
     tags: ["v*.*.*"]
-#  pull_request:
-#    branches: [main]
+  pull_request:
+    branches: [alpha]
   release:
     types:
       - created
       - published
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
