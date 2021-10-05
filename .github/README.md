@@ -1,16 +1,18 @@
-# 🧰 `i-get`
+# `i-get`
 
 <div align="center">
 
   <img src="https://g-assets.ss-o.workers.dev/img/digital-clouds/png/w600/600x600.png" width="300" height="300">
   
 [![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
+[![Heroku CI](https://github.com/ss-o/i/actions/workflows/heroku-deploy.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/heroku-deploy.yml)
 [![Release CI](https://github.com/ss-o/i/actions/workflows/release.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/release.yml)
 [![DeepSource](https://deepsource.io/gh/ss-o/i.svg/?label=active+issues&show_trend=true&token=KQ8QR8GCSTxHYNoEiG9S1U0L)](https://deepsource.io/gh/ss-o/i/?ref=repository-badge)
 
 </div>
 
 ---
+
 
 <div align="center">
 Lightweight 'HTTP Server' based on 'Go', will try detect OS and architecture to return as 'Shell' script.
@@ -34,21 +36,20 @@ curl https://get.digitalclouds.one/coredns | bash
 ```
 - Specific version
 
-```
+```sh
 curl https://get.digitalclouds.one/coredns/coredns@v1.8.0 | bash
 ```
 - Latest binary to PATH with sudo
 
-```
+```sh
 curl https://get.digitalclouds.one/coredns/coredns\!\! | bash
 ```
 
-> See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
+> 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
 
 ## Self-Host
 
 ### 📥 Go
-
 
 - Go install
 
@@ -75,7 +76,7 @@ docker run -d -p 3000:3000 --restart always --name i-get ghcr.io/ss-o/i:latest \
 --token yourgithubtoken --user yourusername
 ```
 
-> Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml)
+> ℹ️ Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml) 
 
 - Try
 
