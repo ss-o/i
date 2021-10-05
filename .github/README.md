@@ -13,11 +13,10 @@
 
 ---
 
-
 <div align="center">
 Lightweight 'HTTP Server' based on 'Go', will try detect OS and architecture to return as 'Shell' script.
 </div>
-  
+
 ## 📶 Try it
 
 - Example to check in browser. 
@@ -47,6 +46,8 @@ curl https://get.digitalclouds.one/coredns/coredns\!\! | bash
 
 > 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
 
+---
+
 ## Self-Host
 
 ### 📥 Go
@@ -62,6 +63,8 @@ go install github.com/ss-o/i@latest
 ```sh
 i --help
 ```
+
+---
 
 ### 🐳 Docker
 
@@ -83,6 +86,8 @@ docker run -d -p 3000:3000 --restart always --name i-get ghcr.io/ss-o/i:latest \
 ```sh
 curl http://localhost:3000/<user>/<repo>@<release> | bash
 ```
+
+---
 
 ### 🐧 Installer
 
