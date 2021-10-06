@@ -21,7 +21,7 @@ Lightweight 'HTTP Server' based on 'Go', will try detect OS and architecture to 
 
 - Example to check in browser. 
 https://get.digitalclouds.one/DNSCrypt/dnscrypt-proxy
-- Example of this repository assents.
+- Example of this repository.
 https://get.digitalclouds.one/i
 
 
