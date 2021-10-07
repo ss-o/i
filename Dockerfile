@@ -1,8 +1,5 @@
 FROM golang:1.17.1-alpine
 
-LABEL maintainer="Salvydas Lukosius <sall@digitalclouds.dev>"
-LABEL org.opencontainers.image.source = "https://github.com/ss-o/i"
-
 RUN apk add --no-cache \
 ca-certificates=~20191127 \
 openssl=~1.1.1 \
