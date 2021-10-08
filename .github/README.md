@@ -14,7 +14,9 @@
 ---
 
 <div align="center">
-Lightweight 'HTTP Server' based on 'Go', will try detect OS and architecture to return as 'Shell' script.
+  
+A lightweight `HTTP` server based on `GO`, will try to detect your OS and architecture and return as `SHELL` script.
+  
 </div>
 
 ## 📶 Try it
