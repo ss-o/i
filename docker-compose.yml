@@ -5,7 +5,7 @@ services:
     build: .
 #    image: ghcr.io/ss-o/i:latest
     container_name: i-get
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
 #    environment:
