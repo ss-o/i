@@ -2,7 +2,11 @@ on:
   push:
     tags:
       - "v*"
-name: Release CI
+name: Go release CI
+
+permissions:
+  contents: write
+
 jobs:
   release:
     name: Release
@@ -10,6 +14,9 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          
       - name: goreleaser
         uses: docker://goreleaser/goreleaser:latest
         env:
