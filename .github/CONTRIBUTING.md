@@ -47,4 +47,3 @@ Readable code is easy to follow, optimizes space and time. Here are a few tips t
 
 ## License
 By contributing, you agree that your contributions will be licensed under its MIT License.
-
