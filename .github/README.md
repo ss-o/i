@@ -43,7 +43,7 @@ bash <(curl -Ss https://get.digitalclouds.one/coredns/coredns@v1.8.5)
 - Latest binary to PATH with sudo
 
 ```sh
-bash (curl -Ss https://get.digitalclouds.one/coredns/coredns\!\!)
+bash <(curl -Ss https://get.digitalclouds.one/coredns/coredns\!\!)
 ```
 
 > 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
