@@ -36,10 +36,12 @@ GET_OS() {
         OS='solaris'
         ;;
     msys*|cygwin*|mingw*)
-	OS='windows'
+	# OS='windows'
+	ERROR 'OS not supported'	
 	;;
     nt|win*)
-	OS='windows'
+	# OS='windows'
+	ERROR 'OS not supported'
 	;;
     *)
         ERROR 'OS not supported'
