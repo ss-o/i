@@ -23,27 +23,27 @@ A lightweight `HTTP` server based on `GO`, will try to detect your OS and archit
 
 - Example to check in browser.
 https://get.digitalclouds.one/DNSCrypt/dnscrypt-proxy
-- Example of this repository.
-https://get.digitalclouds.one/i
+- Example of this repository on [Heroku](https://github.com/ss-o/i/tree/main/.github#-heroku).
+https://i-get.herokuapp.com/i
 
 
-```sh
-bash <(curl -Ss https://get.digitalclouds.one/<user>/<repo>@<release>)
+```bash
+bash <(curl -Ss https://i-get.herokuapp.com/<user>/<repo>@<release>)
 ```
 - Example find latest binary
 
-```sh
-bash <(curl -Ss  https://get.digitalclouds.one/coredns)
+```bash
+bash <(curl -Ss https://i-get.herokuapp.com/coredns)
 ```
 - Specific version
 
-```sh
-bash <(curl -Ss https://get.digitalclouds.one/coredns/coredns@v1.8.5)
+```bash
+bash <(curl -Ss https://i-get.herokuapp.com/coredns/coredns@v1.8.5)
 ```
 - Latest binary to PATH with sudo
 
 ```sh
-bash <(curl -Ss https://get.digitalclouds.one/coredns/coredns\!\!)
+bash <(curl -Ss https://i-get.herokuapp.com/coredns/coredns\!\!)
 ```
 
 > 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
@@ -94,7 +94,7 @@ bash <(curl -Ss http://localhost:3000/<user>/<repo>@<release>)
 ### 🐧 Installer
 
 ```sh
-bash <(curl -Ss https://get.digitalclouds.one/ss-o/i\!\!)
+bash <(curl -Ss https://i-get.herokuapp.com/ss-o/i\!\!)
 i --help
 ```
 
