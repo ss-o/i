@@ -3,7 +3,7 @@
 <div align="center">
 
   <img src="https://g-assets.ss-o.workers.dev/img/digital-clouds/png/w600/600x600.png" width="300" height="300">
-  
+
 [![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
 [![Heroku CI](https://github.com/ss-o/i/actions/workflows/heroku-deploy.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/heroku-deploy.yml)
 [![Release CI](https://github.com/ss-o/i/actions/workflows/go-release.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/go-release.yml)
@@ -14,36 +14,36 @@
 ---
 
 <div align="center">
-  
+
 A lightweight `HTTP` server based on `GO`, will try to detect your OS and architecture and return as `SHELL` script.
-  
+
 </div>
 
 ## 📶 Try it
 
-- Example to check in browser. 
+- Example to check in browser.
 https://get.digitalclouds.one/DNSCrypt/dnscrypt-proxy
 - Example of this repository.
 https://get.digitalclouds.one/i
 
 
 ```sh
-curl https://get.digitalclouds.one/<user>/<repo>@<release> | bash
+bash <(curl -Ss https://get.digitalclouds.one/<user>/<repo>@<release>)
 ```
 - Example find latest binary
 
 ```sh
-curl https://get.digitalclouds.one/coredns | bash
+bash <(curl -Ss  https://get.digitalclouds.one/coredns)
 ```
 - Specific version
 
 ```sh
-curl https://get.digitalclouds.one/coredns/coredns@v1.8.0 | bash
+bash <(curl -Ss https://get.digitalclouds.one/coredns/coredns@v1.8.5)
 ```
 - Latest binary to PATH with sudo
 
 ```sh
-curl https://get.digitalclouds.one/coredns/coredns\!\! | bash
+bash (curl -Ss https://get.digitalclouds.one/coredns/coredns\!\!)
 ```
 
 > 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
@@ -81,12 +81,12 @@ docker run -d -p 3000:3000 --restart always --name i-get ghcr.io/ss-o/i:latest \
 --token yourgithubtoken --user yourusername
 ```
 
-> ℹ️ Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml) 
+> ℹ️ Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml)
 
 - Try
 
 ```sh
-curl http://localhost:3000/<user>/<repo>@<release> | bash
+bash <(curl -Ss http://localhost:3000/<user>/<repo>@<release>)
 ```
 
 ---
@@ -94,11 +94,10 @@ curl http://localhost:3000/<user>/<repo>@<release> | bash
 ### 🐧 Installer
 
 ```sh
-curl https://get.digitalclouds.one/ss-o/i\!\! | bash
+bash <(curl -Ss https://get.digitalclouds.one/ss-o/i\!\!)
 i --help
 ```
 
 ### 🧰 Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/ss-o/i)
-
