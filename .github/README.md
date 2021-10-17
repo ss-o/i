@@ -22,7 +22,7 @@ A lightweight `HTTP` server based on `GO`, will try to detect your OS and archit
 ## 📶 Try it
 
 - Example to check in browser.
-https://get.digitalclouds.one/DNSCrypt/dnscrypt-proxy
+https://i-get.herokuapp.com/DNSCrypt/dnscrypt-proxy
 - Example of this repository on [Heroku](https://github.com/ss-o/i/tree/main/.github#-heroku).
 https://i-get.herokuapp.com/i
 
