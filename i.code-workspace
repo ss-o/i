@@ -8,21 +8,31 @@
 		"cSpell.ignoreWords": [
 			"Buildx",
 			"Commitish",
+			"FTYPE",
+			"GZURL",
+			"aarch",
 			"armv",
 			"commitish",
+			"cygwin",
 			"dont",
 			"fext",
 			"gerr",
 			"ghas",
 			"ghrs",
+			"mipsle",
+			"mkdir",
+			"msys",
+			"ppcle",
 			"reponse",
 			"rerequested",
+			"sunos",
 			"useb",
 			"zyedidia"
 		],
 		"cSpell.enableFiletypes": [
 			"go.mod",
-			"go.sum"
+			"go.sum",
+			"shellscript"
 		]
 	}
 }
