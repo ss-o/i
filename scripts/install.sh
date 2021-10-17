@@ -157,15 +157,17 @@ GET_URL() {
 }
 
 INSTALL () {
-	echo -n "{{ if .MoveToPath }}Installing{{ else }}Downloading{{ end }} $USER/$PROG $RELEASE"
+	echo -ne "{{ if .MoveToPath }}Installing{{ else }}Downloading{{ end }} $USER/$PROG $RELEASE"
 	{{ if .Google }}
-	echo -n " in 10 seconds"
+	echo -ne " in 10 seconds"
 	for i in 1 2 3 4 5 6 7 8 9 10; do
 		sleep 1
-		echo -n " >"
+		echo -ne " >"
 	done
+	echo ""
 	{{ else }}
-	echo " > > > > > > > > > >"
+	echo -ne " > > > > > > > > > >"
+	echo ""
 	{{ end }}
 
 	mkdir -p $TMP_DIR || ERROR "(command mkdir -p $TMP_DIR) failure"
