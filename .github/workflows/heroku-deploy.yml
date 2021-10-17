@@ -3,10 +3,7 @@ on:
   schedule:
     - cron: "0 2 * * 2"
   push:
-    branches: [alpha]
     tags: ["v*.*.*"]
-  pull_request:
-    branches: [alpha]
   release:
     types:
       - created
