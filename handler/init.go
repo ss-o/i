@@ -1,5 +1,4 @@
 //go:generate statik -dest=.. -f -p=scripts -src=../scripts -include=*.sh
-
 package handler
 
 import (

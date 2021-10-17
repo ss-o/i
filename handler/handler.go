@@ -29,7 +29,6 @@ var (
 	pathRe    = regexp.MustCompile(`^` + userRe + `\/` + repoRe + releaseRe + moveRe + `$`)
 
 	isTermRe     = regexp.MustCompile(`(?i)^(curl|wget)\/`)
-	isHomebrewRe = regexp.MustCompile(`(?i)^homebrew`)
 	errNotFound  = errors.New("not found")
 )
 
@@ -63,12 +62,10 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//calculate reponse type
-	var isTerm, isHomebrew, isText bool
+	var isTerm, isText bool
 	switch r.URL.Query().Get("type") {
 	case "script":
 		isTerm = true
-	case "homebrew":
-		isHomebrew = true
 	case "text":
 		isText = true
 	default:
@@ -76,8 +73,6 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		switch {
 		case isTermRe.MatchString(ua):
 			isTerm = true
-		case isHomebrewRe.MatchString(ua):
-			isHomebrew = true
 		default:
 			isText = true
 		}
@@ -126,9 +121,6 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if isTerm {
 		w.Header().Set("Content-Type", "text/x-shellscript")
 		ext = "sh"
-	} else if isHomebrew {
-		w.Header().Set("Content-Type", "text/ruby")
-		ext = "rb"
 	} else {
 		if isText {
 			w.Header().Set("Content-Type", "text/plain")
@@ -143,9 +135,6 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			}
 			fmt.Fprintf(w, "move-into-path: %v\n", q.MoveToPath)
 			fmt.Fprintf(w, "\nto see shell script, visit:\n  %s%s?type=script\n", r.Host, r.URL.String())
-			//			https://cwe.mitre.org/data/definitions/79.html
-			//			reader := strings.NewReader(w, "\nto see shell script, visit:\n  %s%s?type=script\n", r.Host, r.URL.String())
-			//			io.Copy(w, reader)
 			fmt.Fprintf(w, "\nfor more information on this server, visit:\n  github.com/ss-o/i\n")
 			return
 		}

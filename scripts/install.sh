@@ -22,7 +22,7 @@ GET_OS() {
         ;;
     linux*)
         OS='linux'
-        ;;	
+        ;;
     freebsd*)
         OS='freebsd'
         ;;
@@ -37,7 +37,7 @@ GET_OS() {
         ;;
     msys*|cygwin*|mingw*)
 	# OS='windows'
-	ERROR 'OS not supported'	
+	ERROR 'OS not supported'
 	;;
     nt|win*)
 	# OS='windows'
@@ -110,7 +110,7 @@ CLEANUP() {
 ERROR() {
 	CLEANUP
 	MSG="${1}"
-	echo "# ================== #"
+	echo "# === === === === === === #"
 	echo "Error: $MSG" 1>&2
 	exit 1
 }
