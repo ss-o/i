@@ -4,10 +4,7 @@ on:
   schedule:
     - cron: "0 3 * * 0"
   push:
-    branches: [alpha]
     tags: ["v*.*.*"]
-  pull_request:
-    branches: [alpha]
   release:
     types:
       - created
