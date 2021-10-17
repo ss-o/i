@@ -40,11 +40,6 @@ bash <(curl -Ss https://i-get.herokuapp.com/coredns)
 ```bash
 bash <(curl -Ss https://i-get.herokuapp.com/coredns/coredns@v1.8.5)
 ```
-- Latest binary to PATH with sudo
-
-```sh
-bash <(curl -Ss https://i-get.herokuapp.com/coredns/coredns\!\!)
-```
 
 > 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
 
