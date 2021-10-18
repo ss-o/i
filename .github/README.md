@@ -1,4 +1,4 @@
-# `i-get`
+# ⚡ `i-get`
 
 <div align="center">
 
@@ -15,7 +15,7 @@
 
 <div align="center">
 
-A lightweight `HTTP` server based on `GO`, will try to detect your OS and architecture and return as `SHELL` script.
+✨ A lightweight `HTTP` server based on `GO`, will try to detect your OS and architecture and return as `SHELL` script. ✨
 
 </div>
 
@@ -30,7 +30,7 @@ https://i-get.herokuapp.com/i
 ```bash
 bash <(curl -Ss https://i-get.herokuapp.com/<user>/<repo>@<release>)
 ```
-- Example find latest binary
+- 🔭 Example find latest binary
 
 ```bash
 bash <(curl -Ss https://i-get.herokuapp.com/coredns)
@@ -55,7 +55,7 @@ bash <(curl -Ss https://i-get.herokuapp.com/coredns/coredns@v1.8.5)
 go install github.com/ss-o/i@latest
 ```
 
-- Run to see options
+- 💬 Run to see options
 
 ```sh
 i --help
@@ -78,7 +78,7 @@ docker run -d -p 3000:3000 --restart always --name i-get ghcr.io/ss-o/i:latest \
 
 > ℹ️ Check [docker-compose.yml](https://github.com/ss-o/i/raw/main/docker-compose.yml)
 
-- Try
+- 👯 Try
 
 ```sh
 bash <(curl -Ss http://localhost:3000/<user>/<repo>@<release>)
