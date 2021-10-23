@@ -90,6 +90,11 @@ bash <(curl -Ss http://localhost:3000/<user>/<repo>@<release>)
 
 ```sh
 bash <(curl -Ss https://i-get.herokuapp.com/ss-o/i\!\!)
+```
+
+- 💬 Run to see options
+
+```sh
 i --help
 ```
 
