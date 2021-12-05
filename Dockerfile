@@ -1,12 +1,10 @@
 FROM golang:1.17.4-alpine
 
 RUN apk add --no-cache \
-ca-certificates \
-openssl \
-make \
-git \
-wge \
-curl \
+ca-certificates=20191127-r7 \
+openssl=1.1.1l-r7 \
+make=4.3-r0 \
+git=2.34.1-r0 \
 && rm -rf /var/cache/apk/*
 
 WORKDIR /app
