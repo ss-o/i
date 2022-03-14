@@ -53,7 +53,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push to Github Container Registry
-        uses: docker/build-push-action@e115266953eea28d39ebfba339eeac51d5f23b55
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
