@@ -1,4 +1,4 @@
-FROM golang:1.18.1-alpine
+FROM golang:1.18.2-alpine
 
 RUN apk add --no-cache \
 ca-certificates=20191127-r7 \
