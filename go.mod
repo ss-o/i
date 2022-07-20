@@ -3,7 +3,7 @@ module github.com/ss-o/i
 go 1.17
 
 require (
-	github.com/jpillora/opts v1.2.0
+	github.com/jpillora/opts v1.2.1
 	github.com/rakyll/statik v0.1.7
 )
 
