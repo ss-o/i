@@ -1,6 +1,6 @@
 module github.com/ss-o/i
 
-go 1.18
+go 1.19
 
 require (
 	github.com/jpillora/opts v1.2.2
