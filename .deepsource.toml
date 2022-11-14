@@ -1,7 +1,7 @@
 version = 1
 
 [[analyzers]]
-name = "docker"
+name = "shell"
 enabled = true
 
 [[analyzers]]
