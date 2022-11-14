@@ -22,8 +22,9 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API }}
           heroku_email: ${{ secrets.HEROKU_MAIL }}
           heroku_app_name: i-get
+          dontuseforce: true
 #          buildpack:
-#          branch:
+#          branch: main
 #          usedocker:
           healthcheck: http://i-get.herokuapp.com/i
 #          checkstring:
