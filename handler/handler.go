@@ -28,8 +28,8 @@ var (
 	moveRe    = `(!*)`
 	pathRe    = regexp.MustCompile(`^` + userRe + `\/` + repoRe + releaseRe + moveRe + `$`)
 
-	isTermRe     = regexp.MustCompile(`(?i)^(curl|wget)\/`)
-	errNotFound  = errors.New("not found")
+	isTermRe    = regexp.MustCompile(`(?i)^(curl|wget)\/`)
+	errNotFound = errors.New("not found")
 )
 
 type query struct {
@@ -49,7 +49,7 @@ func (q query) cacheKey() string {
 	return base64.StdEncoding.EncodeToString(h.Sum(nil))
 }
 
-//Handler serves install scripts using Github releases
+// Handler serves install scripts using Github releases
 type Handler struct {
 	Config
 	cacheMut sync.Mutex
@@ -61,7 +61,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "https://github.com/ss-o/i", http.StatusMovedPermanently)
 		return
 	}
-	//calculate reponse type
+	// calculate reponse type
 	var isTerm, isText bool
 	switch r.URL.Query().Get("type") {
 	case "script":
@@ -77,7 +77,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			isText = true
 		}
 	}
-	//type specific error response
+	// type specific error response
 	showError := func(msg string, code int) {
 		if isTerm {
 			msg = fmt.Sprintf("echo '%s'\n", msg)
@@ -100,23 +100,23 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Google:     false,
 		Insecure:   r.URL.Query().Get("insecure") == "1",
 	}
-	//pick a user
+	// pick a user
 	if q.User == "" {
 		if q.Program == "micro" {
-			//micro > nano!
+			// micro > nano!
 			q.User = "zyedidia"
 		} else {
-			//use default user, but fallback to google
+			// use default user, but fallback to google
 			q.User = h.Config.User
 			q.Google = true
 		}
 	}
-	//fetch assets
+	// fetch assets
 	if err := h.getAssets(q); err != nil {
 		showError(err.Error(), http.StatusBadGateway)
 		return
 	}
-	//ready!
+	// ready!
 	ext := ""
 	if isTerm {
 		w.Header().Set("Content-Type", "text/x-shellscript")
@@ -146,14 +146,14 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Installer script invalid", http.StatusInternalServerError)
 		return
 	}
-	//execute script
+	// execute script
 	buff := bytes.Buffer{}
 	if err := t.Execute(&buff, q); err != nil {
 		showError("Template error: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	log.Printf("serving script %s/%s@%s (%s)", q.User, q.Program, q.Release, ext)
-	//ready
+	// ready
 	w.Write(buff.Bytes())
 }
 

@@ -6,14 +6,14 @@ import (
 
 	"github.com/rakyll/statik/fs"
 
-	//register data
+	// register data
 	_ "github.com/ss-o/i/scripts"
 )
 
 var installScript = []byte{}
 
 func init() {
-	//load static file
+	// load static file
 	hfs, err := fs.New()
 	if err != nil {
 		log.Fatalf("bad static file system: %s, fix statik", err)
