@@ -16,17 +16,17 @@ func (h *Handler) getAssets(q *query) error {
 	cq, ok := h.cache[key]
 	h.cacheMut.Unlock()
 	if ok && time.Since(cq.Timestamp) < cacheTTL {
-		//cache hit
+		// cache hit
 		*q = *cq
 		return nil
 	}
 
 	err := h.getAssetsNoCache(q)
 	if err == nil {
-		//didn't need google
+		// didn't need google
 		q.Google = false
 	} else if err == errNotFound && q.Google {
-		//use google to auto-detect user...
+		// use google to auto-detect user...
 		user, program, gerr := searchGoogle(q.Program)
 		if gerr != nil {
 			log.Printf("google search failed: %s", gerr)
@@ -39,11 +39,11 @@ func (h *Handler) getAssets(q *query) error {
 			err = h.getAssetsNoCache(q)
 		}
 	}
-	//asset fetch failed, dont cache
+	// asset fetch failed, dont cache
 	if err != nil {
 		return err
 	}
-	//success store results
+	// success store results
 	h.cacheMut.Lock()
 	h.cache[key] = q
 	h.cacheMut.Unlock()
@@ -57,7 +57,7 @@ func (h *Handler) getAssetsNoCache(q *query) error {
 	if release == "" {
 		release = "latest"
 	}
-	//not cached - ask github
+	// not cached - ask github
 	log.Printf("fetching asset info for %s/%s@%s", user, repo, release)
 	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/releases", user, repo)
 	ghas := []ghAsset{}
@@ -98,22 +98,22 @@ func (h *Handler) getAssetsNoCache(q *query) error {
 
 	for _, ga := range ghas {
 		url := ga.BrowserDownloadURL
-		//only binary containers are supported
-		//TODO deb,rpm etc
+		// only binary containers are supported
+		// TODO deb,rpm etc
 		fext := getFileExt(url)
 		if fext != ".zip" && fext != ".gz" && fext != ".tar.gz" && fext != ".tgz" {
 			continue
 		}
-		//match
+		// match
 		os := getOS(ga.Name)
 		arch := getArch(ga.Name)
-		//windows not supported yet
+		// windows not supported yet
 		if os == "windows" {
-			//TODO: powershell
+			// TODO: powershell
 			//  EG: iwr https://deno.land/x/install/install.ps1 -useb | iex
 			continue
 		}
-		//unknown os, cant use
+		// unknown os, cant use
 		if os == "" {
 			continue
 		}
@@ -122,16 +122,16 @@ func (h *Handler) getAssetsNoCache(q *query) error {
 			continue
 		}
 		index[key] = true
-		//include!
+		// include!
 		assets = append(assets, asset{
-			//target
+			// target
 			OS:   os,
 			Arch: arch,
 			//
 			Name: ga.Name,
 			URL:  url,
 			Type: fext,
-			//computed
+			// computed
 			IsMac:   os == "darwin",
 			Is32bit: arch == "386",
 		})
@@ -139,7 +139,7 @@ func (h *Handler) getAssetsNoCache(q *query) error {
 	if len(assets) == 0 {
 		return errors.New("No downloads found for this release")
 	}
-	//TODO: handle duplicate asset.targets
+	// TODO: handle duplicate asset.targets
 	q.Assets = assets
 	return nil
 }
