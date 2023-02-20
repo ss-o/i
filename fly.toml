@@ -1,4 +1,4 @@
-# fly.toml file generated for i-get on 2023-02-20T11:40:55Z
+# fly.toml file generated for i-get on 2023-02-20T12:11:21Z
 
 app = "i-get"
 kill_signal = "SIGINT"
@@ -13,7 +13,7 @@ auto_rollback = true
 [[services]]
 http_checks = []
 internal_port = 3000
-processes = ["i"]
+processes = ["app"]
 protocol = "tcp"
 script_checks = []
 [services.concurrency]

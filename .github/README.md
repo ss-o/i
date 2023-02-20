@@ -16,24 +16,22 @@
 ## 📶 Try it
 
 - Example to check in browser.
-  https://i-get.herokuapp.com/DNSCrypt/dnscrypt-proxy
-- Example of this repository on [Heroku](https://github.com/ss-o/i/tree/main/.github#-heroku).
-  https://i-get.herokuapp.com/i
+  https://i-get.fly.dev/DNSCrypt/dnscrypt-proxy
 
 ```bash
-bash <(curl -Ss https://i-get.herokuapp.com/<user>/<repo>@<release>)
+bash <(curl -Ss https://i-get.fly.dev/<user>/<repo>@<release>)
 ```
 
 - 🔭 Example find latest binary
 
 ```bash
-bash <(curl -Ss https://i-get.herokuapp.com/coredns)
+bash <(curl -Ss https://i-get.fly.dev/coredns)
 ```
 
 - Specific version
 
 ```bash
-bash <(curl -Ss https://i-get.herokuapp.com/coredns/coredns@v1.8.5)
+bash <(curl -Ss https://i-get.fly.dev/coredns/coredns@v1.8.5)
 ```
 
 > 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
@@ -84,7 +82,7 @@ bash <(curl -Ss http://localhost:3000/<user>/<repo>@<release>)
 ### 🐧 Installer
 
 ```sh
-bash <(curl -Ss https://i-get.herokuapp.com/ss-o/i\!\!)
+bash <(curl -Ss https://i-get.fly.dev/ss-o/i\!\!)
 ```
 
 - 💬 Run to see options
@@ -92,7 +90,3 @@ bash <(curl -Ss https://i-get.herokuapp.com/ss-o/i\!\!)
 ```sh
 i --help
 ```
-
-### 🧰 Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/ss-o/i)
