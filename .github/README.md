@@ -35,7 +35,47 @@ bash <(curl -Ss https://i-get.fly.dev/coredns)
 bash <(curl -Ss https://i-get.fly.dev/coredns/coredns@v1.8.5)
 ```
 
-> 📚 See [more options](https://github.com/ss-o/i/wiki/Docs#-options)
+## 💡 Options
+
+- Will try to find, if found will download it after 10s
+
+```sh
+bash <(curl -sS https://example.com/<user>)
+```
+
+- Download the latest release
+
+```sh
+bash <(curl -sS https://example.com/<user>/<repo>)
+```
+
+- Download the required version and move to '/usr/local/bin'
+
+```sh
+bash <(curl -sS https://example.com/<user>/<repo>@<release>\!)
+```
+
+- Download the required version and move to '/usr/local/bin' using 'sudo'
+
+```sh
+bash <(curl -sS https://example.com/<user>/<repo>@<release>\!\!)
+```
+
+```sh
+# Environment variables
+PORT      ||  Set listen port
+USER      ||  Set default user
+GH_TOKEN  ||  Set GitHub API
+
+# Usage options
+  --port,    -p     Port (default 3000)
+  --user,    -u     User (default ss-o)
+  --token,   -t     GitHub API Token
+  --version, -v     Version
+  --help,    -h     Display Help
+```
+
+> [authenticating-with-the-api](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github#authenticating-with-the-api)
 
 ---
 
