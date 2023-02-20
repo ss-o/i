@@ -1,8 +1,0 @@
-{
-  "name": "i-get",
-  "description": "Lightweight 'HTTP Server' based on 'Go', will try detect OS and architecture to return as 'Shell' script.",
-  "website": "https://i-get.herokuapp.com/i/",
-  "repository": "https://github.com/ss-o/i",
-  "logo": "https://g-assets.ss-o.workers.dev/img/digital-clouds/png/w600/600x600.png",
-  "keywords": ["Go", "Assets", "Github", "Shell"]
-}
