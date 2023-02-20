@@ -48,12 +48,12 @@ jobs:
 
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        uses: docker/metadata-action@766400ca14a75010e7b2e3119aa0d5b46826e8c7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push to Github Container Registry
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@7944f9a25be0279b7713908f16090a214db107ef
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
