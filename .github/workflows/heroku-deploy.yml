@@ -23,16 +23,16 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_MAIL }}
           heroku_app_name: i-get
           dontuseforce: true
-#          buildpack:
-#          branch: main
-#          usedocker:
+          #          buildpack:
+          #          branch: main
+          #          usedocker:
           healthcheck: http://i-get.herokuapp.com/i
-#          checkstring:
+          #          checkstring:
           delay: 5
-#          procfile:
+          #          procfile:
           rollbackonhealthcheckfailed: true
 #          env_file:
-#          justlogin: 
+#          justlogin:
 #          region:
 #          stack:
-#          team: # optional, default is 
+#          team: # optional, default is

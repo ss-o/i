@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"regexp"
@@ -181,7 +181,7 @@ func (h *Handler) get(url string, v interface{}) error {
 	if resp.StatusCode == 404 {
 		return errNotFound
 	} else if resp.StatusCode != 200 {
-		b, _ := ioutil.ReadAll(resp.Body)
+		b, _ := io.ReadAll(resp.Body)
 		return errors.New(http.StatusText(resp.StatusCode) + " " + string(b))
 	}
 

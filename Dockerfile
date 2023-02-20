@@ -2,8 +2,8 @@ FROM golang:1.20.1-alpine
 
 RUN apk update \
   && apk add --no-cache \
-  ca-certificates \
-  openssl=~1 \
+  ca-certificates=20230106-r0 \
+  openssl=~3 \
   make=~4 \
   git=~2 \
   && rm -rf /var/cache/apk/*

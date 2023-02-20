@@ -18,19 +18,20 @@
 ## 📶 Try it
 
 - Example to check in browser.
-https://i-get.herokuapp.com/DNSCrypt/dnscrypt-proxy
+  https://i-get.herokuapp.com/DNSCrypt/dnscrypt-proxy
 - Example of this repository on [Heroku](https://github.com/ss-o/i/tree/main/.github#-heroku).
-https://i-get.herokuapp.com/i
-
+  https://i-get.herokuapp.com/i
 
 ```bash
 bash <(curl -Ss https://i-get.herokuapp.com/<user>/<repo>@<release>)
 ```
+
 - 🔭 Example find latest binary
 
 ```bash
 bash <(curl -Ss https://i-get.herokuapp.com/coredns)
 ```
+
 - Specific version
 
 ```bash

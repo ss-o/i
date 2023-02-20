@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+
       - name: goreleaser
         uses: docker://goreleaser/goreleaser:latest
         env:
