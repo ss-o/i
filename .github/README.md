@@ -2,6 +2,7 @@
 
 <div align="center"><h2>
   
+[![Fly CI](https://github.com/ss-o/i/actions/workflows/fly-action.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/fly-action.yml)
 [![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
 [![Release CI](https://github.com/ss-o/i/actions/workflows/go-release.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/go-release.yml)
 
