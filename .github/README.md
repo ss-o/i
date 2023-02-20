@@ -3,9 +3,7 @@
 <div align="center"><h2>
   
 [![Docker CI](https://github.com/ss-o/i/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/docker-publish.yml)
-[![Heroku CI](https://github.com/ss-o/i/actions/workflows/heroku-deploy.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/heroku-deploy.yml)
 [![Release CI](https://github.com/ss-o/i/actions/workflows/go-release.yml/badge.svg)](https://github.com/ss-o/i/actions/workflows/go-release.yml)
-[![DeepSource](https://deepsource.io/gh/ss-o/i.svg/?label=active+issues&show_trend=true&token=KQ8QR8GCSTxHYNoEiG9S1U0L)](https://deepsource.io/gh/ss-o/i/?ref=repository-badge)
 
 </div></h2>
 
