@@ -10,11 +10,13 @@ import (
 
 var searchGithubRe = regexp.MustCompile(`https:\/\/github\.com\/(\w+)\/(\w+)`)
 
+// uses im feeling lucky and grabs the "Location"
+// header from the 302, which contains the github repo
 func searchGoogle(phrase string) (user, project string, err error) {
 	phrase += " site:github.com"
 	log.Printf("google search for '%s'", phrase)
 	v := url.Values{}
-	v.Set("btnI", "") // I'm feeling lucky
+	v.Set("btnI", "") //I'm feeling lucky
 	v.Set("q", phrase)
 	urlstr := "https://www.google.com/search?" + v.Encode()
 	req, err := http.NewRequest("GET", urlstr, nil)
@@ -28,11 +30,11 @@ func searchGoogle(phrase string) (user, project string, err error) {
 		return "", "", fmt.Errorf("request failed: %s", err)
 	}
 	resp.Body.Close()
-	// assume redirection
+	//assume redirection
 	if resp.StatusCode != 302 {
 		return "", "", fmt.Errorf("non-redirect response: %d", resp.StatusCode)
 	}
-	// extract Location header URL
+	//extract Location header URL
 	loc := resp.Header.Get("Location")
 	m := searchGithubRe.FindStringSubmatch(loc)
 	if len(m) == 0 {

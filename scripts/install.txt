@@ -1,0 +1,17 @@
+repository: https://github.com/{{ .User }}/{{ .Program }}
+user: {{ .User }}
+program: {{ .Program }}{{if .AsProgram }}
+as: {{ .AsProgram }}{{end}}
+release: {{ .Release }}
+--------------------------------------------------------------------------
+has-m1-asset: {{ .M1Asset }}
+used-google: {{ .Google }}
+move-into-path: {{ .MoveToPath }}
+--------------------------------------------------------------------------
+assets: {{ range .Assets }}
+  {{ .Key }}:
+    - {{ .URL }}{{if .SHA256 }}
+    - {{ .SHA256 }}{{end}}{{end}}
+--------------------------------------------------------------------------
+for more information on this server, visit:
+  https://github.com/ss-o/i

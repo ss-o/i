@@ -1,30 +1,43 @@
-SHELL := /bin/sh
+SHELL:=/bin/bash
+BUILD_DIR:=bin
+BINARY_NAME:=i
+SERVICE_PORT:=3000
+GO111MODULE:=on
+CGO_ENABLED:=0
+LD_FLAGS:="-s -w -X main.version=$(shell git describe --tags --always --dirty) -X main.buildDate=$(shell date -u +%Y-%m-%dT%H:%M:%SZ)"
 
-GOCMD=go
-BINARY_NAME=i
-SERVICE_PORT=3000
+.PHONY: build test clean docker-build docker-watch
+
+build:
+	@echo "Building binary..."
+	@mkdir -p $(BUILD_DIR)
+	@go mod tidy
+	@go generate ./...
+	@go install ./...
+	@go build -o $(BUILD_DIR)/$(BINARY_NAME) -trimpath -ldflags $(LD_FLAGS) -v .
+	@echo "Build complete!"
+
+test:
+	@echo "Running tests..."
+	@go mod tidy
+	@go generate ./...
+	@go install ./...
+	@go test -v ./...
 
 # Go
 clean:
-	rm -fr ./bin ./vendor
+	$(shell rm -rf $(BUILD_DIR) && go clean)
+	@echo "Clean complete!"
 
-build:
-	mkdir -p ./bin
-	GO111MODULE=on $(GOCMD) build -mod vendor -o ./bin/$(BINARY_NAME) .
+## Docker
+docker-build:
+	@echo "Building docker image..."
+	docker build --rm --tag $(BINARY_NAME) .
 
-vendor:
-	$(GOCMD) mod vendor
-
-statik:
-	cd handler && go generate
-
-## Docker:
-docker-watch:
+docker-watch: docker-build
+	@echo "Running docker image..."
 	$(eval PACKAGE_NAME=$(shell head -n 1 go.mod | cut -d ' ' -f2))
 	docker run -it --rm -w /go/src/$(PACKAGE_NAME) -v $(shell pwd):/go/src/$(PACKAGE_NAME) -p $(SERVICE_PORT):$(SERVICE_PORT) $(BINARY_NAME)
 
-docker-build:
-	docker build --rm --tag $(BINARY_NAME) .
-
-docker-detached-run:
-	docker run -d -p $(SERVICE_PORT):$(SERVICE_PORT) --restart always --name get-it $(BINARY_NAME)
+docker-detached-run: docker-build
+	docker run -d -p $(SERVICE_PORT):$(SERVICE_PORT) --restart always $(BINARY_NAME)

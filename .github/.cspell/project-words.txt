@@ -1,0 +1,9 @@
+cygwin
+goarch
+goarm
+ldflags
+minisig
+minisign
+msys
+nosec
+unrar
