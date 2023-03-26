@@ -61,21 +61,19 @@ type Handler struct {
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/health" {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.Header().Set("Cache-Control", "no-cache")
-		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("{\"status\": \"ok\"}")) //nolint:errcheck
-		return
-	} else if r.URL.Path == "/" {
-		http.Redirect(w, r, "https://github.com/ss-o/i", http.StatusMovedPermanently)
+		w.WriteHeader(http.StatusOK)
 		return
 	} else if r.URL.Path == "/robots.txt" {
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.Header().Set("Cache-Control", "no-cache")
-		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("User-agent: *\nDisallow: /")) //nolint:errcheck
+		w.WriteHeader(http.StatusOK)
+		return
+	} else if r.URL.Path == "/" {
+		http.Redirect(w, r, "https://github.com/ss-o/i", http.StatusMovedPermanently)
 		return
 	}
-
 	// calculate response type
 	ext := ""
 	script := ""
