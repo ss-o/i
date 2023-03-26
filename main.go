@@ -23,7 +23,7 @@ func main() {
 		c.Token = os.Getenv("GH_TOKEN") // GH_TOKEN was renamed
 	}
 	if c.Token != "" {
-		log.Printf("github token will be used for requests to api.github.com")
+		log.Printf("GitHub token is set")
 	}
 	if c.ForceUser != "" {
 		log.Printf("locked user to '%s'", c.ForceUser)

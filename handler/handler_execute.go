@@ -11,7 +11,7 @@ import (
 )
 
 func (h *Handler) execute(q Query) (Result, error) {
-	//load from cache
+	// load from cache
 	key := q.cacheKey()
 	h.cacheMut.Lock()
 	if h.cache == nil {
@@ -19,18 +19,18 @@ func (h *Handler) execute(q Query) (Result, error) {
 	}
 	cached, ok := h.cache[key]
 	h.cacheMut.Unlock()
-	//cache hit
+	// cache hit
 	if ok && time.Since(cached.Timestamp) < cacheTTL {
 		return cached, nil
 	}
-	//do real operation
+	// do real operation
 	ts := time.Now()
 	release, assets, err := h.getAssetsNoCache(q)
 	if err == nil {
-		//didn't need google
+		// google not used
 		q.Google = false
 	} else if errors.Is(err, errNotFound) && q.Google {
-		//use google to auto-detect user...
+		// use google to auto-detect user...
 		user, program, gerr := searchGoogle(q.Program)
 		if gerr != nil {
 			log.Printf("google search failed: %s", gerr)
@@ -41,15 +41,15 @@ func (h *Handler) execute(q Query) (Result, error) {
 			}
 			q.Program = program
 			q.User = user
-			//retry assets...
+			// retry assets...
 			release, assets, err = h.getAssetsNoCache(q)
 		}
 	}
-	//asset fetch failed, don't cache
+	// asset fetch failed, don't cache
 	if err != nil {
 		return Result{}, err
 	}
-	//success
+	// success
 	if q.Release == "" && release != "" {
 		log.Printf("detected release: %s", release)
 		q.Release = release
@@ -60,7 +60,7 @@ func (h *Handler) execute(q Query) (Result, error) {
 		Assets:    assets,
 		M1Asset:   assets.HasM1(),
 	}
-	//success store results
+	// success store results
 	h.cacheMut.Lock()
 	h.cache[key] = result
 	h.cacheMut.Unlock()
@@ -81,7 +81,7 @@ func (h *Handler) getAssetsNoCache(q Query) (string, Assets, error) {
 		if err := h.get(url, &ghr); err != nil {
 			return release, nil, err
 		}
-		release = ghr.TagName //discovered
+		release = ghr.TagName // discovered
 		ghas = ghr.Assets
 	} else {
 		ghrs := []ghRelease{}
@@ -123,27 +123,22 @@ func (h *Handler) getAssetsNoCache(q Query) (string, Assets, error) {
 			log.Printf("fetched asset has unsupported file type: %s (ext '%s')", ga.Name, fext)
 			continue
 		}
-		//skip duplicates
+		// skip duplicates
 		if _, ok := index[url]; ok {
 			log.Printf("fetched asset is a duplicate: %s", ga.Name)
 			continue
 		}
 		index[url] = true
 
-		//match
+		// match
 		os := getOS(ga.Name)
 		arch := getArch(ga.Name)
 
 		if os == "windows" {
-			if fext == ".exe" || fext == ".msi" {
-				log.Printf("fetched asset is for windows: %s", ga.Name)
-				continue
-			} else {
-				log.Printf("fetched asset is for windows: %s", ga.Name)
-				continue
-			}
+			log.Printf("fetched asset is for windows: %s", ga.Name)
+			continue
 		}
-		//unknown os, can't use
+		// log unknown os
 		if os == "" {
 			log.Printf("fetched asset has unknown os: %s", ga.Name)
 			continue
@@ -157,12 +152,12 @@ func (h *Handler) getAssetsNoCache(q Query) (string, Assets, error) {
 			Type:   fext,
 			SHA256: sumIndex[ga.Name],
 		}
-		//there can only be 1 file for each OS/Arch
+		// there can only be 1 file for each OS/Arch
 		if index[asset.Key()] {
 			continue
 		}
 		index[asset.Key()] = true
-		//include!
+		// include
 		assets = append(assets, asset)
 	}
 	if len(assets) == 0 {
@@ -176,7 +171,7 @@ type ghAssets []ghAsset
 func (as ghAssets) getSumIndex() (map[string]string, error) {
 	url := ""
 	for _, ga := range as {
-		//is checksum file?
+		// check if checksum file
 		if ga.IsChecksumFile() {
 			url = ga.BrowserDownloadURL
 			break

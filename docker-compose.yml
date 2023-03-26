@@ -3,11 +3,14 @@ version: "3.8"
 services:
   i-get:
     build: .
-    #    image: ghcr.io/ss-o/i:latest
     container_name: i-get
     restart: unless-stopped
     ports:
       - "3000:3000"
-#    environment:
-#      USER: yourgithubuser
-#      GH_TOKEN: yourgithubtoken
+    environment:
+      - USER
+      - PORT
+      - HTTP_HOST
+      - FORCE_REPO
+      - FORCE_USER
+      - GITHUB_TOKEN
