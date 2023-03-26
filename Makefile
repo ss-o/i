@@ -1,18 +1,20 @@
-SHELL := /bin/bash
-BUILD_DIR := bin
-BINARY_NAME := i
-SERVICE_PORT := 3000
-GO111MODULE := on
-CGO_ENABLED := 0
-LD_FLAGS:="-s -w -X main.version=$(shell git describe --tags --always --dirty) -X main.buildDate=$(shell date -u +%Y-%m-%dT%H:%M:%SZ)"
+SHELL:=/bin/bash
+BUILD_DIR:=dist
+BINARY_NAME:=i
+SERVICE_PORT:=3000
+GO111MODULE:=on
+CGO_ENABLED:=0
+GOVERSION:="$(go version) goreleaser"
+LD_FLAGS:="-s -w -X main.goversion={{.Env.GOVERSION}}"
 
-build:
-	@echo "Building binary..."
-	@mkdir -p $(BUILD_DIR)
-	@go mod tidy
-	@go generate ./...
-	@go install ./...
-	@go build -v -o $(BUILD_DIR)/$(BINARY_NAME) -trimpath .
+releaser:
+	@echo "Preparing..."
+	@go install github.com/goreleaser/goreleaser@latest
+	@goreleaser check --config .github/goreleaser.yml
+
+build: releaser
+	@echo "Building..."
+	@goreleaser build --single-target --clean --skip-validate --config .github/goreleaser.yml
 	@echo "Build complete!"
 
 test: build
