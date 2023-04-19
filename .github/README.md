@@ -16,28 +16,72 @@
 
 ## 📶 Try it
 
-- Example to check in browser.
-  https://i-get.fly.dev/DNSCrypt/dnscrypt-proxy
+### 🕸️ See examples in browser
 
-```bash
-bash <(curl -Ss https://i-get.fly.dev/<user>/<repo>@<release>)
+- https://i-get.fly.dev/DNSCrypt/dnscrypt-proxy
+- https://i-get.fly.dev/yudai/gotty@v0.0.12
+- https://i-get.fly.dev/cloudflared
+- https://i-get.fly.dev/mholt/caddy
+- https://i-get.fly.dev/rclone
+
+## ✍ Path API
+
+- `user` GitHub user, uses Google to pick most relevant `user` when `repo` not found.
+- `repo` GitHub repository belonging to `user` (**required**).
+- `release` GitHub release name, defaults to the **latest** release.
+- `!` downloads binary directly into `/usr/local/bin/`, otherwise to current directory.
+
+> **Note**: Based on the shell configuration it may require to escape character `!` ➜ `\!` or quote `'https://example.com/request!'` the URL string.
+
+```sh
+bash <(curl -sL 'i-get.fly.dev/<user>/<repo>@<release>!')
 ```
 
-- 🔭 Example find latest binary
-
-```bash
-bash <(curl -Ss https://i-get.fly.dev/coredns)
+```sh
+curl i-get.fly.dev/<user>/<repo>@<release>! | bash
 ```
 
-- Specific version
-
-```bash
-bash <(curl -Ss https://i-get.fly.dev/coredns/coredns@v1.8.5)
+```sh
+wget -qO- i-get.fly.dev/<user>/<repo>@<release>! | bash
 ```
 
-## 💡 Options
+## 💡 Query Parameters
 
-- Will try to find, if found will download it after 10s
+- `?type=` force the return type: `script` or `text`
+  - `type` is normally detected via `User-Agent` header
+- `?insecure=1` force `curl`/`wget` to skip certificate checks
+  - client will be prevented to authenticate using the `GITHUB_TOKEN` for security reasons.
+- `?as=` rename binary with appended value.
+
+```sh
+bash <(curl -sL 'i-get.fly.dev/coredns?type=script')
+```
+
+```sh
+bash <(curl -sL 'i-get.fly.dev/coredns/coredns?as=dns')
+```
+
+```sh
+curl i-get.fly.dev/coredns?insecure=1 | bash
+```
+
+## Private repositories
+
+Requires `GITHUB_TOKEN` set as environment variable before starting server and running requests on a client.
+
+### Lock user/repository
+
+In some cases, people want an installer server for a single tool
+
+```sh
+export FORCE_USER=cloudflare
+export FORCE_REPO=cloudflared
+./i
+```
+
+Then calls to `curl 'localhost:3000` will return the install script for `cloudflare/cloudflared`
+
+- Will try to find, if found will download it after 6s
 
 ```sh
 bash <(curl -sS https://example.com/<user>)
@@ -62,17 +106,17 @@ bash <(curl -sS https://example.com/<user>/<repo>@<release>\!\!)
 ```
 
 ```sh
-# Environment variables
-PORT      ||  Set listen port
-USER      ||  Set default user
-GH_TOKEN  ||  Set GitHub API
+Usage: i [options]
 
-# Usage options
-  --port,    -p     Port (default 3000)
-  --user,    -u     User (default ss-o)
-  --token,   -t     GitHub API Token
-  --version, -v     Version
-  --help,    -h     Display Help
+Options:
+  --host, -h        host (env HTTP_HOST)
+  --port, -p        port (default 3000, env PORT)
+  --user, -u        default user for URL requests (default ss-o, env USER)
+  --token, -t       token for GitHub API (env GITHUB_TOKEN)
+  --force-user, -f  forcefully use single owner (env FORCE_USER)
+  --force-repo      forcefully use a single repository (env FORCE_REPO)
+  --version, -v     display version
+  --help            display help
 ```
 
 > [authenticating-with-the-api](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github#authenticating-with-the-api)

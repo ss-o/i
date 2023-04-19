@@ -21,7 +21,7 @@ _exec_as_user() { _cmd su -c "$@" "$USER"; }
 _exec_as_root() { _cmd sudo -E "$@" &> /dev/null; }
 _exec_as() { [[ "$EUID" -eq 0 ]] && _exec_as_root "$@" || _exec_as_user "$@"; }
 _set_auth() {
-	if [[ $_allow_insecure_traffic == false ]]; then
+	if [[ $_allow_insecure_traffic != true ]]; then
 		if [[ -n "${GITHUB_TOKEN}" ]]; then
 			declare _header_="'Authorization: Bearer ${GITHUB_TOKEN}'"
 			declare _opts_="-H ${_header_}"
@@ -29,7 +29,9 @@ _set_auth() {
 			declare _opts_=""
 		fi
 	else
-		say_err "Authorization is not allowed with insecure traffic enabled"
+	  [[ -n "${GITHUB_TOKEN}" ]] && unset GITHUB_TOKEN
+		say -red "authorization disabled (insecure traffic allowed)"
+    declare _opts_=""
 	fi
 }
 
@@ -91,13 +93,13 @@ _install() {
 		case $GET in
 		curl)
 			[[ "$DEBUG" == "true" ]] && _dbg="--verbose" || _dbg="--silent"
-			[[ $_allow_insecure_traffic == "true" ]] && _sec="--insecure" || _sec=""
-			_opts_+="--show-error --location --retry 3 --progress-bar ${_sec} --fail ${_dbg} -o -"
+			#[[ $_allow_insecure_traffic == "true" ]] && _sec="--insecure" || _sec=""
+			_opts_="${_opts_} ${_sec} --show-error --location --retry 3 --progress-bar --fail ${_dbg} -o -"
 			;;
 		wget)
 			[[ "$DEBUG" == "true" ]] && _dbg="--verbose" || _dbg="--quiet"
-			[[ $_allow_insecure_traffic == "true" ]] && _sec="--no-check-certificate" || _sec=""
-			_opts_+="--tries=3 --progress=bar ${_sec} ${_dbg} -O -"
+			#[[ $_allow_insecure_traffic == "true" ]] && _sec="--no-check-certificate" || _sec=""
+			_opts_="${_opts_} ${_sec} --tries=3 --progress=bar ${_dbg} -O -"
 			;;
 		*)
 			_err "no HTTP client found, please install curl or wget and try again"
