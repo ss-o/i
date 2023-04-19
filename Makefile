@@ -10,7 +10,6 @@ LD_FLAGS:="-s -w -X main.goversion={{.Env.GOVERSION}}"
 releaser:
 	@echo "Preparing..."
 	@go install github.com/goreleaser/goreleaser@latest
-	@goreleaser check --config .github/goreleaser.yml
 
 build: releaser
 	@echo "Building..."

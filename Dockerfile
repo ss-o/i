@@ -13,7 +13,7 @@ RUN apk add --no-cache --virtual .build-deps \
     bash \
     ca-certificates \
     && update-ca-certificates \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/apk/* \
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ COPY . .
 
 RUN make build && apk del .build-deps
 
-FROM alpine:3.17.3
+FROM builder AS production
 
 COPY --from=builder /app/dist/i_linux_amd64_v1/i /usr/local/bin/
 
