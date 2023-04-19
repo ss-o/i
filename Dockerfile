@@ -6,6 +6,8 @@ ARG HTTP_HOST PORT
 ARG FORCE_USER FORCE_REPO
 ARG GITHUB_TOKEN
 
+WORKDIR /app
+
 # trunk-ignore(hadolint/DL3018)
 RUN apk add --no-cache --virtual .build-deps \
     git \
@@ -15,15 +17,12 @@ RUN apk add --no-cache --virtual .build-deps \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/* \
 
-WORKDIR /app
-
 COPY . .
 
 RUN make build && apk del .build-deps
 
 FROM builder AS production
 
-WORKDIR /app
 COPY --from=builder /app/dist/i_linux_amd64_v1/i /usr/local/bin/
 
 EXPOSE 3000
