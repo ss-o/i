@@ -15,7 +15,7 @@ RUN apk add --no-cache --virtual .build-deps \
     bash \
     ca-certificates \
     && update-ca-certificates \
-    && rm -rf /var/cache/apk/* \
+    && rm -rf /var/cache/apk/*
 
 COPY . .
 
