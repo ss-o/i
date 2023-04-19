@@ -21,7 +21,7 @@ COPY . .
 
 RUN make build && apk del .build-deps
 
-FROM alpine:3.17.2
+FROM alpine:3.17.3
 
 COPY --from=builder /app/dist/i_linux_amd64_v1/i /usr/local/bin/
 
