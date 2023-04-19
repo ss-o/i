@@ -6,36 +6,54 @@ import (
 )
 
 var (
-	archRe    = regexp.MustCompile(`(aarch64|armv6|armv7|armv8|arm64|arm|amd32|x32|x86(-|_)?32|386|amd64|x64|x86(-|_)?64|mips64le|mips64|mipsle|mips|ppc64le|ppc64|ppc|ppcle|s390x)`)
-	fileExtRe = regexp.MustCompile(`(\.[a-z][a-z0-9]+)+$`)
-	posixOSRe = regexp.MustCompile(`(android|darwin|linux|(net|free|open)bsd|mac|osx|windows|win|solaris)`)
+	osRe       = regexp.MustCompile(`(linux|(net|free|open)bsd|dragonfly|sunos|darwin|mac(|os)|osx|windows|cygwin|win)`)
+	archRe     = regexp.MustCompile(`(amd64|x86_64|armv6l|armv7l|arm|aarch64|i?86|32|64)`)
+	fileExtRe  = regexp.MustCompile(`(\.[a-z][a-z0-9]+)+$`)
+	checksumRe = regexp.MustCompile(`(checksums|sha256sums|sha256sum|sha256)`)
 )
 
 func getOS(s string) string {
+	// os detection
 	s = strings.ToLower(s)
-	o := posixOSRe.FindString(s)
-	if o == "mac" || o == "osx" {
-		o = "darwin"
-	}
-	if o == "win" {
+	o := osRe.FindString(s)
+	// os modifications
+	if o == "win" || o == "cygwin" {
 		o = "windows"
+	} else if o == "macos" || o == "osx" || o == "mac" {
+		o = "darwin"
+	} else if o == "sunos" {
+		o = "solaris"
 	}
+
 	return o
 }
 
 func getArch(s string) string {
+	// arch detection
 	s = strings.ToLower(s)
 	a := archRe.FindString(s)
-	if a == "x64" || a == "x86_64" {
-		a = "amd64"
-	} else if a == "x32" || a == "x86" || a == "x86_32" || a == "amd32" {
+	// arch modifications
+	if a == "64" || a == "x86_64" || a == "" {
+		a = "amd64" //default
+	} else if a == "i686" || a == "i386" || a == "32" || a == "86" {
 		a = "386"
-	} else if a == "aarch64" || a == "armv8" {
+	} else if a == "aarch64" {
 		a = "arm64"
+	} else if a == "armv6l" || a == "armv7l" {
+		a = "arm"
 	}
+
 	return a
 }
 
 func getFileExt(s string) string {
 	return fileExtRe.FindString(s)
+}
+
+func splitHalf(s, by string) (string, string) {
+	i := strings.Index(s, by)
+	if i == -1 {
+		return s, ""
+	}
+	return s[:i], s[i+len(by):]
 }

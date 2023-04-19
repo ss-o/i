@@ -1,0 +1,19 @@
+: -------------------------------------------------------------------------- :
+user: {{.User}}
+program: {{.Program}}{{if .AsProgram}}
+as: {{.AsProgram}}{{end}}
+release: {{.Release}}
+repository: https://github.com/{{.User}}/{{.Program}}
+: -------------------------------------------------------------------------- :
+m1: {{.M1Asset}}
+path: {{.MoveToPath}}
+google: {{.Google}}
+insecure: {{.Insecure}}
+: -------------------------------------------------------------------------- :
+assets:{{range .Assets}}
+  {{.Key}}:
+    - url:  {{.URL}}{{if .SHA256}}
+    - sha256: {{.SHA256}}{{end}}{{end}}
+: -------------------------------------------------------------------------- :
+url_options: append '?type=text|script|homebrew' to change content type
+source: https://github.com/ss-o/i

@@ -1,5 +1,5 @@
-.git
 .trunk
-.github
+.github/*.md
+!.github/*.yml
 bin
-
+dist

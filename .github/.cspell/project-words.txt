@@ -1,0 +1,12 @@
+Cloudflared
+cygwin
+goarch
+goarm
+ldflags
+minisig
+minisign
+msys
+MTYPE
+nosec
+pacman
+unrar
