@@ -4,16 +4,10 @@ BINARY_NAME:=i
 SERVICE_PORT:=3000
 GO111MODULE:=on
 CGO_ENABLED:=0
-GOVERSION:="$(go version) goreleaser"
-LD_FLAGS:="-s -w -X main.goversion={{.Env.GOVERSION}}"
 
-releaser:
-	@echo "Preparing..."
-	@go install github.com/goreleaser/goreleaser@latest
-
-build: releaser
+build:
 	@echo "Building..."
-	@goreleaser build --single-target --clean --skip-validate --config .github/goreleaser.yml
+	@go build -buildvcs=false -o $(BINARY_NAME) .
 	@echo "Build complete!"
 
 test: build

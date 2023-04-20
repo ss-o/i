@@ -23,7 +23,7 @@ RUN make build && apk del .build-deps
 
 FROM builder AS production
 
-COPY --from=builder /app/dist/i_linux_amd64_v1/i /usr/local/bin/
+COPY --from=builder /app/i /usr/local/bin/
 
 EXPOSE 3000
 
