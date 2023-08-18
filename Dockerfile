@@ -1,4 +1,4 @@
-FROM golang:1.20.6-alpine AS builder
+FROM golang:1.21.0-alpine AS builder
 
 ARG GO111MODULE CGO_ENABLED
 ARG USER REPO
