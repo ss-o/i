@@ -9,7 +9,10 @@ on:
 jobs:
   deploy:
     name: Deploy proxy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@v1
