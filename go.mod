@@ -1,10 +1,13 @@
 module github.com/ss-o/i
 
-go 1.20
+go 1.21.5
+
+toolchain go1.24.3
 
 require (
 	github.com/jpillora/opts v1.2.3
 	github.com/jpillora/requestlog v1.0.0
+	github.com/jpillora/requestlog/v2 v2.0.1
 )
 
 require (
