@@ -2,7 +2,7 @@ module github.com/ss-o/i
 
 go 1.21.5
 
-toolchain go1.24.3
+toolchain go1.24.5
 
 require (
 	github.com/jpillora/opts v1.2.3
