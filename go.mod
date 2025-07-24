@@ -6,7 +6,7 @@ toolchain go1.24.5
 
 require (
 	github.com/jpillora/opts v1.2.3
-	github.com/jpillora/requestlog v1.0.0
+	github.com/jpillora/requestlog/v2 v2.0.1
 	github.com/jpillora/requestlog/v2 v2.0.1
 )
 
